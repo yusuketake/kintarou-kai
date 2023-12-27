@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class testAPI {
+public class TestAPI {
 
     @GetMapping("/")
     public List<String> get() {

@@ -1,0 +1,14 @@
+version: '3'
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5433:5432" #5432だと他のアプリと被りそうだからずらした
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./docker_resources/init/:/docker-entrypoint-initdb.d

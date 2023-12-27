@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.benkyo.mapper.gen.AttendancesMapper">
+  <resultMap id="BaseResultMap" type="com.benkyo.entity.gen.Attendances">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="holiday_id" jdbcType="INTEGER" property="holidayId" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="month" jdbcType="INTEGER" property="month" />
+    <result column="day" jdbcType="INTEGER" property="day" />
+    <result column="start_time" jdbcType="VARCHAR" property="startTime" />
+    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="is_entered" jdbcType="BIT" property="isEntered" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from attendances
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.benkyo.entity.gen.Attendances">
+    insert into attendances (id, user_id, holiday_id, 
+      year, month, day, start_time, 
+      end_time, is_entered)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{holidayId,jdbcType=INTEGER}, 
+      #{year,jdbcType=INTEGER}, #{month,jdbcType=INTEGER}, #{day,jdbcType=INTEGER}, #{startTime,jdbcType=VARCHAR}, 
+      #{endTime,jdbcType=VARCHAR}, #{isEntered,jdbcType=BIT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.benkyo.entity.gen.Attendances">
+    update attendances
+    set user_id = #{userId,jdbcType=INTEGER},
+      holiday_id = #{holidayId,jdbcType=INTEGER},
+      year = #{year,jdbcType=INTEGER},
+      month = #{month,jdbcType=INTEGER},
+      day = #{day,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      is_entered = #{isEntered,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, user_id, holiday_id, year, month, day, start_time, end_time, is_entered
+    from attendances
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, user_id, holiday_id, year, month, day, start_time, end_time, is_entered
+    from attendances
+  </select>
+</mapper>
