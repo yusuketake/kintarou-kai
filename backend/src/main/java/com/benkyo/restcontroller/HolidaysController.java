@@ -8,6 +8,7 @@ import com.benkyo.service.HolidaysService;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
@@ -21,7 +22,7 @@ public class HolidaysController {
     }
 
     @GetMapping("")
-    public List<Holiday> getHolidayList() {
-        return holidaysService.getHolidayList();
+    public ResponseEntity<List<Holiday>> getHolidayList() {
+        return ResponseEntity.ok().body(holidaysService.getHolidayList());
     }
 }

@@ -36,8 +36,8 @@ public class UsersController {
     }
 
     @GetMapping("")
-    public List<User> getUserList() {
-        return usersService.getUserList();
+    public ResponseEntity<List<User>> getUserList() {
+        return ResponseEntity.ok().body(usersService.getUserList());
     }
     
 }
