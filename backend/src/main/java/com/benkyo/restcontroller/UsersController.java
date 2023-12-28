@@ -8,6 +8,7 @@ import com.benkyo.model.dto.User;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -24,8 +25,14 @@ public class UsersController {
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable int id) {
-        return usersService.getUser(id);
+    public ResponseEntity<User> getUser(@PathVariable int id) {
+        try {
+            return ResponseEntity.ok().body(usersService.getUser(id));
+        } catch (Exception e) {
+            // 存在しないUserIDのリクエストが投げられたとき
+            return ResponseEntity.badRequest().body(null);
+        }
+        
     }
 
     @GetMapping("")
