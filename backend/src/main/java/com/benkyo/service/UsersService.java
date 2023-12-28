@@ -26,8 +26,7 @@ public class UsersService {
 
     public List<User> getUserList() {
         List<User> userList = new ArrayList<>();
-        var userEntityList = usersDao.getUserList();
-        userEntityList.stream().forEach(userEntity -> {
+        usersDao.getUserList().stream().forEach(userEntity -> {
             userList.add(this.of(userEntity));
         });
 

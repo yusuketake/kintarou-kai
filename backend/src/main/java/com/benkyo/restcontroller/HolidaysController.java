@@ -3,7 +3,7 @@ package com.benkyo.restcontroller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.benkyo.entity.gen.Holidays;
+import com.benkyo.model.dto.Holiday;
 import com.benkyo.service.HolidaysService;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class HolidaysController {
     }
 
     @GetMapping("")
-    public List<Holidays> getHolidayList() {
+    public List<Holiday> getHolidayList() {
         return holidaysService.getHolidayList();
     }
 }
