@@ -17,7 +17,10 @@ public class UsersDao {
     }
 
     public Users getUser(int id) {
-        return usersMapper.selectByPrimaryKey(id);
+        Users user = usersMapper.selectByPrimaryKey(id);
+        
+
+        return user;
     }
 
     public List<Users> getUserList() {
