@@ -3,9 +3,8 @@ package com.benkyo.restcontroller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.benkyo.mapper.gen.UsersMapper;
+import com.benkyo.service.UsersService;
 import com.benkyo.entity.gen.Users;
-import com.benkyo.entity.gen.UsersExample;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,17 +14,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 public class UsersController {
 
-    private UsersMapper usersMapper;
+    private UsersService usersService;
 
-    public UsersController(UsersMapper usersMapper) {
-        this.usersMapper = usersMapper;
+    public UsersController(UsersService usersService) {
+        this.usersService = usersService;
     }
 
     @GetMapping("/{id}")
     public Users getUser(@PathVariable int id) {
-        var example = new UsersExample();
-        example.createCriteria().andIdEqualTo(id);
-        return usersMapper.selectByExample(example).get(0);
+        return usersService.getUser(id);
     }
     
 }
