@@ -6,8 +6,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.benkyo.service.UsersService;
 import com.benkyo.entity.gen.Users;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 @RequestMapping("api/users")
@@ -23,6 +26,11 @@ public class UsersController {
     @GetMapping("/{id}")
     public Users getUser(@PathVariable int id) {
         return usersService.getUser(id);
+    }
+
+    @GetMapping("")
+    public List<Users> getUserList() {
+        return usersService.getUserList();
     }
     
 }

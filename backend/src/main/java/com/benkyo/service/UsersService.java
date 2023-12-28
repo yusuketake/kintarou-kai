@@ -3,6 +3,8 @@ package com.benkyo.service;
 import com.benkyo.dao.UsersDao;
 import com.benkyo.entity.gen.Users;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,5 +17,9 @@ public class UsersService {
 
     public Users getUser(int id) {
         return usersDao.getUser(id);
+    }
+
+    public List<Users> getUserList() {
+        return usersDao.getUserList();
     }
 }
