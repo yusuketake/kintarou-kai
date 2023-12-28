@@ -4,22 +4,16 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5433/postgres
+    url: jdbc:postgresql://localhost:5433/kintarou
     username: postgres
     password: postgres
 
-
-#MyBatis
 mybatis:
-  mapper-locations: classpath:com/benkyo/repository/*.xml
+    mapper-locations: classpath:com/benkyo/mapper/gen/*.xml
 
-#??????
-#spring.profiles.active: develop
-
-#????
 logging:
   config: classpath:logback-spring.xml
   level:
     root: INFO
-    org.springframework.web: DEBUG # ????????????????????(Unknown Property???????????)
+    org.springframework.web: DEBUG
     appLogger: DEBUG
