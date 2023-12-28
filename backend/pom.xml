@@ -99,11 +99,11 @@
 					<dependency>
 						<groupId>org.postgresql</groupId>
 						<artifactId>postgresql</artifactId>
-						<version>42.7.1</version>
+						<version>42.6.0</version>
 					</dependency>
 				</dependencies>
 				<configuration>
-					<classPathEntry location="${user.home}/.m2/repository/org/postgresql/postgresql/42.7.1/postgresql-42.7.1.jar" />
+					<classPathEntry location="${user.home}/.m2/repository/org/postgresql/postgresql/42.6.0/postgresql-42.6.0.jar" />
 					<overwrite>true</overwrite>
 				</configuration>
         	</plugin>     
