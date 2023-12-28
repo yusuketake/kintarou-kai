@@ -90,4 +90,43 @@ public class Attendances {
     public void setIsEntered(Boolean isEntered) {
         this.isEntered = isEntered;
     }
+
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that == null) {
+            return false;
+        }
+        if (getClass() != that.getClass()) {
+            return false;
+        }
+        Attendances other = (Attendances) that;
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+            && (this.getHolidayId() == null ? other.getHolidayId() == null : this.getHolidayId().equals(other.getHolidayId()))
+            && (this.getYear() == null ? other.getYear() == null : this.getYear().equals(other.getYear()))
+            && (this.getMonth() == null ? other.getMonth() == null : this.getMonth().equals(other.getMonth()))
+            && (this.getDay() == null ? other.getDay() == null : this.getDay().equals(other.getDay()))
+            && (this.getStartTime() == null ? other.getStartTime() == null : this.getStartTime().equals(other.getStartTime()))
+            && (this.getEndTime() == null ? other.getEndTime() == null : this.getEndTime().equals(other.getEndTime()))
+            && (this.getIsEntered() == null ? other.getIsEntered() == null : this.getIsEntered().equals(other.getIsEntered()));
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getHolidayId() == null) ? 0 : getHolidayId().hashCode());
+        result = prime * result + ((getYear() == null) ? 0 : getYear().hashCode());
+        result = prime * result + ((getMonth() == null) ? 0 : getMonth().hashCode());
+        result = prime * result + ((getDay() == null) ? 0 : getDay().hashCode());
+        result = prime * result + ((getStartTime() == null) ? 0 : getStartTime().hashCode());
+        result = prime * result + ((getEndTime() == null) ? 0 : getEndTime().hashCode());
+        result = prime * result + ((getIsEntered() == null) ? 0 : getIsEntered().hashCode());
+        return result;
+    }
 }

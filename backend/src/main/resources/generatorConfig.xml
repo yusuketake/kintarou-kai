@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration >
-  <context id="context1" targetRuntime="MyBatis3Simple">
+  <context id="context1" targetRuntime="MyBatis3">
+    <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+    <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
     <!-- コメント生成の抑制 -->
     <commentGenerator>
         <property name="suppressAllComments" value="true" />
@@ -24,6 +26,7 @@
 
     <javaClientGenerator type="XMLMAPPER" targetPackage="com.benkyo.mapper.gen"  targetProject="src/main/java">
       <property name="enableSubPackages" value="true" />
+      <property name="annotation" value="com.benkyo.annotation.Mapper" />
     </javaClientGenerator>
 
     <table tableName="users"></table>

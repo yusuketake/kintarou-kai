@@ -1,6 +1,5 @@
 package com.benkyo.restcontroller;
 
-import java.util.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,8 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestAPI {
 
     @GetMapping("/")
-    public List<String> get() {
-        List<String> list = new ArrayList<>(Arrays.asList("あ", "い", "う", "え", "お"));
-        return list;
+    public String get() {
+        return "ホーム";
     }
 }
