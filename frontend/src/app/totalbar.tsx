@@ -4,19 +4,19 @@ function Totalbar() {
   return (
     <div className="bg-red-100">
       <div>
-        <h2>月間</h2>
+        <div>月間</div>
       </div>
       <div>
         <div>
           <div>
-            <h3>実績</h3>
+            <div>実績</div>
           </div>
           <div>
             <meter value="0.5"></meter>
           </div>
         </div>
         <div>
-          <h3>予測</h3>
+          <div>予測</div>
           <meter value="0.8"></meter>
         </div>
       </div>
