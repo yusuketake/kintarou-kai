@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.benkyo.service.UsersService;
+import com.benkyo.entity.gen.Users;
 import com.benkyo.model.dto.User;
 
 import java.util.List;
@@ -11,6 +12,9 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -38,6 +42,13 @@ public class UsersController {
     @GetMapping("")
     public ResponseEntity<List<User>> getUserList() {
         return ResponseEntity.ok().body(usersService.getUserList());
+    }
+    
+    // 返り値どうするか悩みどころ
+    @PostMapping("/create")
+    public ResponseEntity<Users> createUser(@RequestBody Users user) {
+        usersService.createUser(user);
+        return ResponseEntity.ok().body(user);
     }
     
 }

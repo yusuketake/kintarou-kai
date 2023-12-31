@@ -27,4 +27,8 @@ public class UsersDao {
         var example = new UsersExample();
         return usersMapper.selectByExample(example);
     }
+
+    public int createUser(Users user) {
+        return usersMapper.insertSelective(user);
+    }
 }

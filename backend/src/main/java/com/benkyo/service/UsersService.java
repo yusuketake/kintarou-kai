@@ -33,6 +33,10 @@ public class UsersService {
         return userList;
     }
 
+    public int createUser(Users user) {
+        return usersDao.createUser(user);
+    }
+
     private User of(Users userEntity) {
         User user = new User();
         user.setId(userEntity.getId());
