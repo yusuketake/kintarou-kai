@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#header {
+  display: flex;
+  width: 100%;
+  color: red;
+}
+
+/* barコンポーネント */
+.bar {
+  border: 0.8px;
+  border-style: dotted solid none;
+  /* padding: 5px 10px; */
+  height: 10px;
+  margin: 0 0 -1px;
+  /* 線が重複して太くなるのを消すため */
+}
+
+.bar:first-of-type {
+  border-style: solid solid none solid;
+}
+
+.bar:last-of-type {
+  border-style: dotted solid solid solid;
+}
+
+.bar:nth-child(5n) {
+  border-style: dotted solid solid solid;
+}
+
+.timeBar {
+  border: none;
+  /* padding: 5px 10px; */
+  height: 10px;
+  margin: 0 0 -1px;
+}
+
+.timeBar-container {
+  padding-top: 0;
+  padding-right: 0;
+}
+
+.timeBar.text {
+  text-align: right;
+}
+
+button {
+  border: solid 1px;
+  border-radius: 3px;
+}
