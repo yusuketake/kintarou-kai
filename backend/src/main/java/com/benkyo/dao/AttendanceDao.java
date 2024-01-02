@@ -1,5 +1,8 @@
 package com.benkyo.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.benkyo.entity.gen.Attendances;
@@ -13,6 +16,27 @@ public class AttendanceDao {
 
     public AttendanceDao(AttendancesMapper attendancesMapper){
         this.attendancesMapper = attendancesMapper;
+    }
+
+    public Attendances getAttendance(Attendances attendances){
+        AttendancesExample example = new AttendancesExample();
+        example.createCriteria()
+            .andUserIdEqualTo(attendances.getUserId())
+            .andYearEqualTo(attendances.getYear())
+            .andMonthEqualTo(attendances.getMonth())
+            .andDayEqualTo(attendances.getDay());
+        List<Attendances> list = attendancesMapper.selectByExample(example);
+        return list.get(1);
+    }
+
+    public List<Attendances> getAttendanceListByYearAndMonth(Attendances attendances){
+        AttendancesExample example = new AttendancesExample();
+        example.createCriteria()
+            .andUserIdEqualTo(attendances.getUserId())
+            .andYearEqualTo(attendances.getYear())
+            .andMonthEqualTo(attendances.getMonth());
+        List<Attendances> list = attendancesMapper.selectByExample(example);
+        return list;
     }
 
     public int insertAttendance(Attendances attendances){

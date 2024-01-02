@@ -1,5 +1,7 @@
 package com.benkyo.restcontroller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +29,32 @@ public class AttendancesController {
     }
 
     @GetMapping("get/{year}{month}{day}")
+    public Attendances getAttendance(
+        @RequestBody @PathVariable int userId,
+        @RequestBody @PathVariable int year,
+        @RequestBody @PathVariable int month,
+        @RequestBody @PathVariable int day
+    ){
+        attendances.setId(userId);
+        attendances.setYear(year);
+        attendances.setMonth(month);
+        attendances.setDay(day);
+
+        return attendancesService.getAttendance(attendances);
+    }
+    
+    @GetMapping("getList/{year}{month}{day}")
+    public List<Attendances> getAttendancesByYearAndMonth(
+        @RequestBody @PathVariable int userId,
+        @RequestBody @PathVariable int year,
+        @RequestBody @PathVariable int month       
+    ){
+        attendances.setId(userId);
+        attendances.setYear(year);
+        attendances.setMonth(month);
+
+        return attendancesService.getAttendanceListByYearAndMonth(attendances);
+    }
 
     @PostMapping("insert/{userId}/{year}{month}{day}")
     public int insertAttendance(

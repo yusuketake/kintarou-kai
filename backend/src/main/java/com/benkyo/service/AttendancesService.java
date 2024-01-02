@@ -1,5 +1,7 @@
 package com.benkyo.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.benkyo.dao.AttendanceDao;
@@ -12,6 +14,14 @@ public class AttendancesService {
     public AttendancesService(AttendanceDao attendanceDao){
         this.attendanceDao = attendanceDao;
     }
+    
+    public Attendances getAttendance(Attendances attendances){
+        return attendanceDao.getAttendance(attendances);
+    }
+    
+    public List<Attendances> getAttendanceListByYearAndMonth(Attendances attendances){
+        return attendanceDao.getAttendanceListByYearAndMonth(attendances);
+    }    
 
     public int insertAttendance(Attendances attendances){
         return attendanceDao.insertAttendance(attendances);
