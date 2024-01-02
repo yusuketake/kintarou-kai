@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 
-
 @RequestMapping("api/users")
 @RestController
 public class UsersController {
@@ -36,19 +35,19 @@ public class UsersController {
             // 存在しないUserIDのリクエストが投げられたとき
             return ResponseEntity.badRequest().body(null);
         }
-        
+
     }
 
     @GetMapping("")
     public ResponseEntity<List<User>> getUserList() {
         return ResponseEntity.ok().body(usersService.getUserList());
     }
-    
+
     // 返り値どうするか悩みどころ
     @PostMapping("/create")
     public ResponseEntity<Users> createUser(@RequestBody Users user) {
         usersService.createUser(user);
         return ResponseEntity.ok().body(user);
     }
-    
+
 }

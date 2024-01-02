@@ -18,7 +18,6 @@ public class UsersDao {
 
     public Users getUser(int id) {
         Users user = usersMapper.selectByPrimaryKey(id);
-        
 
         return user;
     }

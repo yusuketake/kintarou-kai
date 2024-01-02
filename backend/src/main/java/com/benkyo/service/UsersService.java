@@ -46,7 +46,7 @@ public class UsersService {
 
         var department = departmentDao.getDepartment(userEntity.getDepartmentId());
         user.setDepartment(department.getName());
-        
+
         return user;
     }
 }
