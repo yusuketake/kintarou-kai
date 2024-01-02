@@ -24,6 +24,7 @@ public class AttendanceDao {
 
         // 年月日をWHEREで指定するcriteria作成
         example.createCriteria()
+            .andUserIdEqualTo(attendances.getUserId())
             .andYearEqualTo(attendances.getYear())
             .andMonthEqualTo(attendances.getMonth())
             .andDayEqualTo(attendances.getDay());            
@@ -37,6 +38,7 @@ public class AttendanceDao {
 
         // 年月日をWHEREで指定するcriteria作成
         example.createCriteria()
+            .andUserIdEqualTo(attendances.getUserId())
             .andYearEqualTo(attendances.getYear())
             .andMonthEqualTo(attendances.getMonth())
             .andDayEqualTo(attendances.getDay());            

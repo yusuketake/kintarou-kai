@@ -1,6 +1,7 @@
 package com.benkyo.restcontroller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,25 +26,31 @@ public class AttendancesController {
         this.attendancesService = attendancesService;
     }
 
+    @GetMapping("get/{year}{month}{day}")
 
-    @PostMapping("insert/{year}{month}{day}")
+    @PostMapping("insert/{userId}/{year}{month}{day}")
     public int insertAttendance(
+        @RequestBody @PathVariable int userId,
         @RequestBody @PathVariable int year,
         @RequestBody @PathVariable int month,
         @RequestBody @PathVariable int day){
-                        attendances.setYear(year);
+            
+            attendances.setId(userId);
+            attendances.setYear(year);
             attendances.setMonth(month);
             attendances.setDay(day);
             
             return attendancesService.insertAttendance(attendances);
     }
 
-    @PutMapping("update/{year}{month}{day}")
+    @PutMapping("update/{userId}/{year}{month}{day}")
     public int updateAttendance(
+        @RequestBody @PathVariable int userId,
         @RequestBody @PathVariable int year,
         @RequestBody @PathVariable int month,
         @RequestBody @PathVariable int day){
         
+            attendances.setId(userId);
             attendances.setYear(year);
             attendances.setMonth(month);
             attendances.setDay(day);
@@ -51,12 +58,14 @@ public class AttendancesController {
             return attendancesService.updateAttendance(attendances);
     }
     
-    @PostMapping("delete/{year}{month}{day}")
+    @PostMapping("delete/{userId}/{year}{month}{day}")
     public int deleteAttendance(
+        @RequestBody @PathVariable int userId,
         @RequestBody @PathVariable int year,
         @RequestBody @PathVariable int month,
         @RequestBody @PathVariable int day){
 
+            attendances.setId(userId);
             attendances.setYear(year);
             attendances.setMonth(month);
             attendances.setDay(day);
