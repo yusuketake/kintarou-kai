@@ -24,17 +24,14 @@ public class AttendancesController {
     // private AttendanceDao attendanceDao;
 
     // attendancesDaoやattendancesはコンストラクタで初期化しなくて大丈夫だよね？
-    public AttendancesController(AttendancesService attendancesService){
+    public AttendancesController(AttendancesService attendancesService) {
         this.attendancesService = attendancesService;
     }
 
     @GetMapping("get/{year}{month}{day}")
-    public Attendances getAttendance(
-        @RequestBody @PathVariable int userId,
-        @RequestBody @PathVariable int year,
-        @RequestBody @PathVariable int month,
-        @RequestBody @PathVariable int day
-    ){
+    public Attendances getAttendance(@RequestBody @PathVariable int userId,
+            @RequestBody @PathVariable int year, @RequestBody @PathVariable int month,
+            @RequestBody @PathVariable int day) {
         attendances.setId(userId);
         attendances.setYear(year);
         attendances.setMonth(month);
@@ -42,13 +39,10 @@ public class AttendancesController {
 
         return attendancesService.getAttendance(attendances);
     }
-    
+
     @GetMapping("getList/{year}{month}{day}")
-    public List<Attendances> getAttendancesByYearAndMonth(
-        @RequestBody @PathVariable int userId,
-        @RequestBody @PathVariable int year,
-        @RequestBody @PathVariable int month       
-    ){
+    public List<Attendances> getAttendancesByYearAndMonth(@RequestBody @PathVariable int userId,
+            @RequestBody @PathVariable int year, @RequestBody @PathVariable int month) {
         attendances.setId(userId);
         attendances.setYear(year);
         attendances.setMonth(month);
@@ -57,50 +51,44 @@ public class AttendancesController {
     }
 
     @PostMapping("insert/{userId}/{year}{month}{day}")
-    public int insertAttendance(
-        @RequestBody @PathVariable int userId,
-        @RequestBody @PathVariable int year,
-        @RequestBody @PathVariable int month,
-        @RequestBody @PathVariable int day){
-            
-            attendances.setId(userId);
-            attendances.setYear(year);
-            attendances.setMonth(month);
-            attendances.setDay(day);
-            
-            return attendancesService.insertAttendance(attendances);
+    public int insertAttendance(@RequestBody @PathVariable int userId,
+            @RequestBody @PathVariable int year, @RequestBody @PathVariable int month,
+            @RequestBody @PathVariable int day) {
+
+        attendances.setId(userId);
+        attendances.setYear(year);
+        attendances.setMonth(month);
+        attendances.setDay(day);
+
+        return attendancesService.insertAttendance(attendances);
     }
 
     @PutMapping("update/{userId}/{year}{month}{day}")
-    public int updateAttendance(
-        @RequestBody @PathVariable int userId,
-        @RequestBody @PathVariable int year,
-        @RequestBody @PathVariable int month,
-        @RequestBody @PathVariable int day){
-        
-            attendances.setId(userId);
-            attendances.setYear(year);
-            attendances.setMonth(month);
-            attendances.setDay(day);
+    public int updateAttendance(@RequestBody @PathVariable int userId,
+            @RequestBody @PathVariable int year, @RequestBody @PathVariable int month,
+            @RequestBody @PathVariable int day) {
 
-            return attendancesService.updateAttendance(attendances);
+        attendances.setId(userId);
+        attendances.setYear(year);
+        attendances.setMonth(month);
+        attendances.setDay(day);
+
+        return attendancesService.updateAttendance(attendances);
     }
-    
+
     @PostMapping("delete/{userId}/{year}{month}{day}")
-    public int deleteAttendance(
-        @RequestBody @PathVariable int userId,
-        @RequestBody @PathVariable int year,
-        @RequestBody @PathVariable int month,
-        @RequestBody @PathVariable int day){
+    public int deleteAttendance(@RequestBody @PathVariable int userId,
+            @RequestBody @PathVariable int year, @RequestBody @PathVariable int month,
+            @RequestBody @PathVariable int day) {
 
-            attendances.setId(userId);
-            attendances.setYear(year);
-            attendances.setMonth(month);
-            attendances.setDay(day);
+        attendances.setId(userId);
+        attendances.setYear(year);
+        attendances.setMonth(month);
+        attendances.setDay(day);
 
-            return attendancesService.deleteAttendance(attendances);
+        return attendancesService.deleteAttendance(attendances);
 
-        }
-    
-    
+    }
+
+
 }
