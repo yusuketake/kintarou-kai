@@ -7,7 +7,8 @@ import com.benkyo.model.dto.User;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,6 +35,8 @@ public class UsersService {
     }
 
     public int createUser(Users user) {
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
         return usersDao.createUser(user);
     }
 
