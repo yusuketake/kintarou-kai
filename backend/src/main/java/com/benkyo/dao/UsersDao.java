@@ -18,7 +18,6 @@ public class UsersDao {
 
     public Users getUser(int id) {
         Users user = usersMapper.selectByPrimaryKey(id);
-        
 
         return user;
     }
@@ -26,5 +25,9 @@ public class UsersDao {
     public List<Users> getUserList() {
         var example = new UsersExample();
         return usersMapper.selectByExample(example);
+    }
+
+    public int createUser(Users user) {
+        return usersMapper.insertSelective(user);
     }
 }

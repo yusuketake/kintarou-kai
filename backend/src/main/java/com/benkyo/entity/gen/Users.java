@@ -64,10 +64,14 @@ public class Users {
         }
         Users other = (Users) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getDepartmentId() == null ? other.getDepartmentId() == null : this.getDepartmentId().equals(other.getDepartmentId()))
-            && (this.getLoginId() == null ? other.getLoginId() == null : this.getLoginId().equals(other.getLoginId()))
-            && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()));
+                && (this.getName() == null ? other.getName() == null
+                        : this.getName().equals(other.getName()))
+                && (this.getDepartmentId() == null ? other.getDepartmentId() == null
+                        : this.getDepartmentId().equals(other.getDepartmentId()))
+                && (this.getLoginId() == null ? other.getLoginId() == null
+                        : this.getLoginId().equals(other.getLoginId()))
+                && (this.getPassword() == null ? other.getPassword() == null
+                        : this.getPassword().equals(other.getPassword()));
     }
 
     @Override

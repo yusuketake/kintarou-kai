@@ -24,7 +24,7 @@ public class HolidaysService {
             holiday.setName(holidayEntity.getName());
             holidayList.add(holiday);
         });
-        
+
         return holidayList;
     }
 }
