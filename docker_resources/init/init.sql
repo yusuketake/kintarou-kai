@@ -1,6 +1,6 @@
 CREATE DATABASE kintarou;
 
-\ c kintarou;
+\c kintarou;
 
 CREATE TABLE IF NOT EXISTS departments(
     id SERIAL,
@@ -14,7 +14,7 @@ VALUES
     (1, '住まいエンジニアリング部'),
     (2, 'SRE部');
 
-setval('departments_id_seq', 3);
+select setval('departments_id_seq', 2);
 
 CREATE TABLE IF NOT EXISTS users(
     id SERIAL,
@@ -32,7 +32,7 @@ VALUES
     (1, '齊藤　辰彦', 1, 'tatsuhiko_saito', 'password'),
     (2, '竹内　祐介', 2, 'yusuke_takeuchi', 'password');
 
-setval('users_id_seq', 3);
+select setval('users_id_seq', 2);
 
 CREATE TABLE IF NOT EXISTS holidays(
     id SERIAL,
@@ -48,7 +48,7 @@ VALUES
     (3, 'アニバーサリー休暇'),
     (4, '忌引き（無給）');
 
-setval('holidays_id_seq', 3);
+select setval('holidays_id_seq', 2);
 
 
 CREATE TABLE IF NOT EXISTS attendances(
@@ -121,4 +121,4 @@ FROM
     CROSS JOIN users u
     CROSS JOIN holidays h;
 
-setval('attendances_id_seq', 2);
+select setval('users_id_seq', 2);
