@@ -14,6 +14,8 @@ VALUES
     (1, '住まいエンジニアリング部'),
     (2, 'SRE部');
 
+setval('departments_id_seq', 3);
+
 CREATE TABLE IF NOT EXISTS users(
     id SERIAL,
     name text,
@@ -30,6 +32,8 @@ VALUES
     (1, '齊藤　辰彦', 1, 'tatsuhiko_saito', 'password'),
     (2, '竹内　祐介', 2, 'yusuke_takeuchi', 'password');
 
+setval('users_id_seq', 3);
+
 CREATE TABLE IF NOT EXISTS holidays(
     id SERIAL,
     name text,
@@ -43,6 +47,9 @@ VALUES
     (2, 'フレキシブル休暇'),
     (3, 'アニバーサリー休暇'),
     (4, '忌引き（無給）');
+
+setval('holidays_id_seq', 3);
+
 
 CREATE TABLE IF NOT EXISTS attendances(
     id SERIAL,
@@ -113,3 +120,5 @@ FROM
     CROSS JOIN generate_series(11, 12) m(month)
     CROSS JOIN users u
     CROSS JOIN holidays h;
+
+setval('attendances_id_seq', 2);
