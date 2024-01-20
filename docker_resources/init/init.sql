@@ -29,8 +29,8 @@ CREATE TABLE IF NOT EXISTS users(
 INSERT into
     users (id, name, department_id, login_id, password)
 VALUES
-    (1, '齊藤　辰彦', 1, 'tatsuhiko_saito', 'password'),
-    (2, '竹内　祐介', 2, 'yusuke_takeuchi', 'password');
+    (1, '齊藤　辰彦', 1, 'tatsuhiko_saito', '{bcrypt}$2a$10$cCrBSpVo5n9QNveU9OSIe.ed8jLDag197X5wRtgcO/izapwNNuM4O'),
+    (2, '竹内　祐介', 2, 'yusuke_takeuchi', '{bcrypt}$2a$10$Qam2ywSdBcvFm79XJl6e0e7PVRN5GES5V.c/DFEfGN2URSbMk8KlS');
 
 select setval('users_id_seq', 2);
 
