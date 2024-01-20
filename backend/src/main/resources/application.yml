@@ -15,6 +15,7 @@ logging:
   config: classpath:logback-spring.xml
   level:
     root: INFO
+    # spring webのロギングレベル
     org.springframework.web: DEBUG
     appLogger: DEBUG
 

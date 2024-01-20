@@ -1,6 +1,6 @@
 CREATE DATABASE kintarou;
 
-\c kintarou;
+\ c kintarou;
 
 CREATE TABLE IF NOT EXISTS departments(
     id SERIAL,
@@ -14,7 +14,8 @@ VALUES
     (1, '住まいエンジニアリング部'),
     (2, 'SRE部');
 
-select setval('departments_id_seq', 2);
+select
+    setval('departments_id_seq', 2);
 
 CREATE TABLE IF NOT EXISTS users(
     id SERIAL,
@@ -29,10 +30,23 @@ CREATE TABLE IF NOT EXISTS users(
 INSERT into
     users (id, name, department_id, login_id, password)
 VALUES
-    (1, '齊藤　辰彦', 1, 'tatsuhiko_saito', '{bcrypt}$2a$10$cCrBSpVo5n9QNveU9OSIe.ed8jLDag197X5wRtgcO/izapwNNuM4O'),
-    (2, '竹内　祐介', 2, 'yusuke_takeuchi', '{bcrypt}$2a$10$Qam2ywSdBcvFm79XJl6e0e7PVRN5GES5V.c/DFEfGN2URSbMk8KlS');
+    (
+        1,
+        '齊藤　辰彦',
+        1,
+        'tatsuhiko_saito',
+        '{bcrypt}$2a$10$cCrBSpVo5n9QNveU9OSIe.ed8jLDag197X5wRtgcO/izapwNNuM4O'
+    ),
+    (
+        2,
+        '竹内　祐介',
+        2,
+        'yusuke_takeuchi',
+        '{bcrypt}$2a$10$Qam2ywSdBcvFm79XJl6e0e7PVRN5GES5V.c/DFEfGN2URSbMk8KlS'
+    );
 
-select setval('users_id_seq', 2);
+select
+    setval('users_id_seq', 2);
 
 CREATE TABLE IF NOT EXISTS holidays(
     id SERIAL,
@@ -48,8 +62,11 @@ VALUES
     (3, 'アニバーサリー休暇'),
     (4, '忌引き（無給）');
 
-select setval('holidays_id_seq', 2);
-
+-- select setval('holidays_id_seq', 2);
+------------------------------
+-- attendancesリセット
+------------------------------
+DROP TABLE IF EXISTS attendances;
 
 CREATE TABLE IF NOT EXISTS attendances(
     id SERIAL,
@@ -116,9 +133,9 @@ SELECT
     END as break_time,
     true as is_entered
 FROM
-    generate_series(1, 365) as d(day)
-    CROSS JOIN generate_series(11, 12) m(month)
+    generate_series(1, 60) as d(day) -- INNER JOIN generate_series(11, 12) m(month) ON month = m
     CROSS JOIN users u
-    CROSS JOIN holidays h;
+    INNER JOIN holidays h ON h.id = 1;
 
-select setval('users_id_seq', 2);
+select
+    setval('users_id_seq', 2);
