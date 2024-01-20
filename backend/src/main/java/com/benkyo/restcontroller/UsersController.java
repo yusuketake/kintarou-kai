@@ -8,7 +8,6 @@ import com.benkyo.entity.gen.Users;
 import com.benkyo.model.dto.User;
 
 import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
