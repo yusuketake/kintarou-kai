@@ -30,4 +30,11 @@ public class UsersDao {
     public int createUser(Users user) {
         return usersMapper.insertSelective(user);
     }
+
+    public Users getUserByLoginId(String loginId) {
+        var example = new UsersExample();
+        example.createCriteria().andLoginIdEqualTo(loginId);
+        List<Users> userList = usersMapper.selectByExample(example);
+        return userList.size() >= 1 ? userList.get(0) : null;
+    }
 }
