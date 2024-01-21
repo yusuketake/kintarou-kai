@@ -104,14 +104,22 @@ public class Attendances {
         }
         Attendances other = (Attendances) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getHolidayId() == null ? other.getHolidayId() == null : this.getHolidayId().equals(other.getHolidayId()))
-            && (this.getYear() == null ? other.getYear() == null : this.getYear().equals(other.getYear()))
-            && (this.getMonth() == null ? other.getMonth() == null : this.getMonth().equals(other.getMonth()))
-            && (this.getDay() == null ? other.getDay() == null : this.getDay().equals(other.getDay()))
-            && (this.getStartTime() == null ? other.getStartTime() == null : this.getStartTime().equals(other.getStartTime()))
-            && (this.getEndTime() == null ? other.getEndTime() == null : this.getEndTime().equals(other.getEndTime()))
-            && (this.getIsEntered() == null ? other.getIsEntered() == null : this.getIsEntered().equals(other.getIsEntered()));
+                && (this.getUserId() == null ? other.getUserId() == null
+                        : this.getUserId().equals(other.getUserId()))
+                && (this.getHolidayId() == null ? other.getHolidayId() == null
+                        : this.getHolidayId().equals(other.getHolidayId()))
+                && (this.getYear() == null ? other.getYear() == null
+                        : this.getYear().equals(other.getYear()))
+                && (this.getMonth() == null ? other.getMonth() == null
+                        : this.getMonth().equals(other.getMonth()))
+                && (this.getDay() == null ? other.getDay() == null
+                        : this.getDay().equals(other.getDay()))
+                && (this.getStartTime() == null ? other.getStartTime() == null
+                        : this.getStartTime().equals(other.getStartTime()))
+                && (this.getEndTime() == null ? other.getEndTime() == null
+                        : this.getEndTime().equals(other.getEndTime()))
+                && (this.getIsEntered() == null ? other.getIsEntered() == null
+                        : this.getIsEntered().equals(other.getIsEntered()));
     }
 
     @Override

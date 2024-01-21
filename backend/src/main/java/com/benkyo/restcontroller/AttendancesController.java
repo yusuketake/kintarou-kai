@@ -34,14 +34,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AttendancesController {
     private AttendancesService attendancesService;
-    private Attendances attendances;
+    // 各メソッドでnewするとメモリ効率悪い、インスタンスの初期化メソッドごとに書く必要あって冗長になる。クラス変数で定義する。
+    Attendances attendances = new Attendances();
 
     // attendancesDaoやattendancesはコンストラクタで初期化しなくて大丈夫だよね？
-    public AttendancesController(AttendancesService attendancesService, Attendances attendances) {
+    public AttendancesController(AttendancesService attendancesService) {
+        // serviceはDIコンテナに登録されているので、コンストラクタで注入できる。
         this.attendancesService = attendancesService;
 
-        // 各メソッドでnewするとメモリ効率悪い、インスタンスの初期化メソッドごとに書く必要あって冗長になる。コンストラクタで初期化する。全メソッドで使うクラスについては特に。Beanには指定しなくてok、クラスを跨いで必要なもの（例えばDtoとか）ではないため。
-        this.attendances = attendances;
     }
 
     @GetMapping("get")
