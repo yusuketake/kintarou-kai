@@ -1,6 +1,6 @@
 CREATE DATABASE kintarou;
 
-\ c kintarou;
+\c kintarou;
 
 CREATE TABLE IF NOT EXISTS departments(
     id SERIAL,
