@@ -3,57 +3,47 @@ package com.benkyo.restcontroller;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.benkyo.dao.AttendanceDao;
 import com.benkyo.entity.UserDetailsImpl;
 import com.benkyo.entity.gen.Attendances;
-import com.benkyo.model.dto.DeleteAttendance;
-import com.benkyo.model.dto.GetAttendance;
-import com.benkyo.model.dto.GetAttendanceList;
-import com.benkyo.model.dto.UpsertAttendance;
-import com.benkyo.model.dto.User;
+import com.benkyo.model.dto.request.DeleteAttendanceRequest;
+import com.benkyo.model.dto.request.GetAttendanceListRequest;
+import com.benkyo.model.dto.request.GetAttendanceRequest;
+import com.benkyo.model.dto.request.UpsertAttendanceRequest;
 import com.benkyo.service.AttendancesService;
 import lombok.extern.slf4j.Slf4j;
-
-
-// TODO Javaのformatter、余分なimport文消してくれないから変える必要あり。
-
 
 @RequestMapping("/api/attendances")
 @RestController
 @Slf4j
 public class AttendancesController {
     private AttendancesService attendancesService;
-    // 各メソッドでnewするとメモリ効率悪い、インスタンスの初期化メソッドごとに書く必要あって冗長になる。クラス変数で定義する。
-    Attendances attendances = new Attendances();
+    // Attendances attendances = new Attendances();
+    // メソッド内で定義したほうがいい。
+    // 1.スレッドセーフ性考えると、メソッド内でインスタンス化したほうがいいかも。APIが同時に叩かれた時に、同じインスタンス使われるとバグる可能性ありそう。
+    // 2.クラスで定義すると逆にメモリ食うかも。Controllerライフサイクルでは常にメモリ占有するけど、メソッド内で定義したら、メソッド終了時に解放される気がする。常にメモリ占有するか、呼ばれる時に確保して解放するかみたいな。
 
-    // attendancesDaoやattendancesはコンストラクタで初期化しなくて大丈夫だよね？
     public AttendancesController(AttendancesService attendancesService) {
-        // serviceはDIコンテナに登録されているので、コンストラクタで注入できる。
+        // serviceはDIコンテナに登録されているので、DIコンテナからコンストラクタで注入できる。
         this.attendancesService = attendancesService;
-
     }
 
-    @GetMapping("get")
+    @GetMapping("/get")
     public ResponseEntity<Attendances> getAttendance(
             @AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
-            @RequestBody GetAttendance attendance) {
-
+            @RequestBody GetAttendanceRequest request) {
+        Attendances attendances = new Attendances();
         // userIdはsessionから取得
         attendances.setUserId(userDetailsImpl.getId());
-        attendances.setYear(attendance.getYear());
-        attendances.setMonth(attendance.getMonth());
-        attendances.setDay(attendance.getDay());
+        attendances.setYear(request.getYear());
+        attendances.setMonth(request.getMonth());
+        attendances.setDay(request.getDay());
 
         try {
             return ResponseEntity.ok().body(attendancesService.getAttendance(attendances));
@@ -62,13 +52,14 @@ public class AttendancesController {
         }
     }
 
-    @GetMapping("getAttendanceListByYearAndMonth")
+    @GetMapping("/getAttendanceListByYearAndMonth")
     public ResponseEntity<List<Attendances>> getAttendanceListByYearAndMonth(
             @AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
-            @RequestBody GetAttendanceList attendance) {
+            @RequestBody GetAttendanceListRequest request) {
+        Attendances attendances = new Attendances();
         attendances.setUserId(userDetailsImpl.getId());
-        attendances.setYear(attendance.getYear());
-        attendances.setMonth(attendance.getMonth());
+        attendances.setYear(request.getYear());
+        attendances.setMonth(request.getMonth());
 
         try {
             return ResponseEntity.ok()
@@ -78,16 +69,17 @@ public class AttendancesController {
         }
     }
 
-    @PostMapping("insert")
+    @PostMapping("/insert")
     public ResponseEntity<Integer> insertAttendance(
             @AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
-            @RequestBody UpsertAttendance attendance) {
+            @RequestBody UpsertAttendanceRequest request) {
+        Attendances attendances = new Attendances();
         attendances.setUserId(userDetailsImpl.getId());
-        attendances.setYear(attendance.getYear());
-        attendances.setMonth(attendance.getMonth());
-        attendances.setDay(attendance.getDay());
-        attendances.setStartTime(attendance.getStartTime());
-        attendances.setEndTime(attendance.getEndTime());
+        attendances.setYear(request.getYear());
+        attendances.setMonth(request.getMonth());
+        attendances.setDay(request.getDay());
+        attendances.setStartTime(request.getStartTime());
+        attendances.setEndTime(request.getEndTime());
 
         try {
             int isPosted = attendancesService.insertAttendance(attendances);
@@ -103,16 +95,17 @@ public class AttendancesController {
     }
 
     // TODO updateも削除対象のattendanceがあるかチェックして、あった場合はerror投げるようにしたけどいらない？
-    @PutMapping("update")
+    @PutMapping("/update")
     public ResponseEntity<Integer> updateAttendance(
             @AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
-            @RequestBody UpsertAttendance attendance) {
+            @RequestBody UpsertAttendanceRequest request) {
+        Attendances attendances = new Attendances();
         attendances.setUserId(userDetailsImpl.getId());
-        attendances.setYear(attendance.getYear());
-        attendances.setMonth(attendance.getMonth());
-        attendances.setDay(attendance.getDay());
-        attendances.setStartTime(attendance.getStartTime());
-        attendances.setEndTime(attendance.getEndTime());
+        attendances.setYear(request.getYear());
+        attendances.setMonth(request.getMonth());
+        attendances.setDay(request.getDay());
+        attendances.setStartTime(request.getStartTime());
+        attendances.setEndTime(request.getEndTime());
 
         try {
             int isUpdated = attendancesService.updateAttendance(attendances);
@@ -128,14 +121,15 @@ public class AttendancesController {
     }
 
     // TODO deleteも削除対象のattendanceがあるかチェックして、あった場合はerror投げるようにしたけどいらない？
-    @DeleteMapping("delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<Integer> deleteAttendance(
             @AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
-            @RequestBody DeleteAttendance attendance) {
+            @RequestBody DeleteAttendanceRequest request) {
+        Attendances attendances = new Attendances();
         attendances.setUserId(userDetailsImpl.getId());
-        attendances.setYear(attendance.getYear());
-        attendances.setMonth(attendance.getMonth());
-        attendances.setDay(attendance.getDay());
+        attendances.setYear(request.getYear());
+        attendances.setMonth(request.getMonth());
+        attendances.setDay(request.getDay());
 
         try {
             int isDeleted = attendancesService.deleteAttendance(attendances);

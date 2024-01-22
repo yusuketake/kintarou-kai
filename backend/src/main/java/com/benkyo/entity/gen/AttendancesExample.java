@@ -604,6 +604,76 @@ public class AttendancesExample {
             return (Criteria) this;
         }
 
+        public Criteria andBreakTimeIsNull() {
+            addCriterion("break_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBreakTimeIsNotNull() {
+            addCriterion("break_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBreakTimeEqualTo(String value) {
+            addCriterion("break_time =", value, "breakTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBreakTimeNotEqualTo(String value) {
+            addCriterion("break_time <>", value, "breakTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBreakTimeGreaterThan(String value) {
+            addCriterion("break_time >", value, "breakTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBreakTimeGreaterThanOrEqualTo(String value) {
+            addCriterion("break_time >=", value, "breakTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBreakTimeLessThan(String value) {
+            addCriterion("break_time <", value, "breakTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBreakTimeLessThanOrEqualTo(String value) {
+            addCriterion("break_time <=", value, "breakTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBreakTimeLike(String value) {
+            addCriterion("break_time like", value, "breakTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBreakTimeNotLike(String value) {
+            addCriterion("break_time not like", value, "breakTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBreakTimeIn(List<String> values) {
+            addCriterion("break_time in", values, "breakTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBreakTimeNotIn(List<String> values) {
+            addCriterion("break_time not in", values, "breakTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBreakTimeBetween(String value1, String value2) {
+            addCriterion("break_time between", value1, value2, "breakTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBreakTimeNotBetween(String value1, String value2) {
+            addCriterion("break_time not between", value1, value2, "breakTime");
+            return (Criteria) this;
+        }
+
         public Criteria andIsEnteredIsNull() {
             addCriterion("is_entered is null");
             return (Criteria) this;
