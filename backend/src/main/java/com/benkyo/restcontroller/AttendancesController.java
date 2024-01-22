@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.benkyo.entity.UserDetailsImpl;
 import com.benkyo.entity.gen.Attendances;
+import com.benkyo.model.dto.Attendance;
 import com.benkyo.model.dto.request.DeleteAttendanceRequest;
 import com.benkyo.model.dto.request.GetAttendanceListRequest;
 import com.benkyo.model.dto.request.GetAttendanceRequest;
@@ -35,7 +36,7 @@ public class AttendancesController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<Attendances> getAttendance(
+    public ResponseEntity<Attendance> getAttendance(
             @AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
             @RequestBody GetAttendanceRequest request) {
         Attendances attendances = new Attendances();

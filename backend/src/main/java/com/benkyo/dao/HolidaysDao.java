@@ -14,6 +14,13 @@ public class HolidaysDao {
         this.holidaysMapper = holidaysMapper;
     }
 
+    public List<Holidays> getHolidayName(int holidayId) {
+        HolidaysExample example = new HolidaysExample();
+        example.createCriteria().andIdEqualTo(holidayId);
+
+        return holidaysMapper.selectByExample(example);
+    }
+
     public List<Holidays> getHolidayList() {
         var example = new HolidaysExample();
         return holidaysMapper.selectByExample(example);
