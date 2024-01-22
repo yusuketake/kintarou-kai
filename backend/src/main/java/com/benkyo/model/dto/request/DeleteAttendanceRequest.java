@@ -1,9 +1,9 @@
-package com.benkyo.model.dto;
+package com.benkyo.model.dto.request;
 
 import lombok.Data;
 
 @Data
-public class DeleteAttendance {
+public class DeleteAttendanceRequest {
     int year;
     int month;
     int day;

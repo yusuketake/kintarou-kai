@@ -1,10 +1,7 @@
 package com.benkyo.service;
 
-import java.lang.reflect.Executable;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import com.benkyo.dao.AttendanceDao;
 import com.benkyo.entity.gen.Attendances;
 

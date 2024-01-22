@@ -1,15 +1,14 @@
 package com.benkyo.service;
 
-import com.benkyo.dao.DepartmentDao;
-import com.benkyo.dao.UsersDao;
-import com.benkyo.entity.gen.Users;
-import com.benkyo.model.dto.User;
-
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.benkyo.dao.DepartmentDao;
+import com.benkyo.dao.UsersDao;
+import com.benkyo.entity.gen.Users;
+import com.benkyo.model.dto.User;
 
 @Service
 public class UsersService {

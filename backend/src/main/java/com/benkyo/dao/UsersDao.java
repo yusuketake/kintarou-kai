@@ -1,9 +1,7 @@
 package com.benkyo.dao;
 
 import java.util.List;
-
 import org.springframework.stereotype.Repository;
-
 import com.benkyo.entity.gen.Users;
 import com.benkyo.entity.gen.UsersExample;
 import com.benkyo.mapper.gen.UsersMapper;

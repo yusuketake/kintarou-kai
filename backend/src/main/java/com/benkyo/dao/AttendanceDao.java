@@ -1,10 +1,7 @@
 package com.benkyo.dao;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Repository;
-
 import com.benkyo.entity.gen.Attendances;
 import com.benkyo.entity.gen.AttendancesExample;
 import com.benkyo.mapper.gen.AttendancesMapper;

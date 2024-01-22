@@ -1,9 +1,7 @@
 package com.benkyo.dao;
 
 import java.util.List;
-
 import org.springframework.stereotype.Repository;
-
 import com.benkyo.entity.gen.Holidays;
 import com.benkyo.entity.gen.HolidaysExample;
 import com.benkyo.mapper.gen.HolidaysMapper;

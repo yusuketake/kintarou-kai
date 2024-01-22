@@ -1,9 +1,9 @@
-package com.benkyo.model.dto;
+package com.benkyo.model.dto.request;
 
 import lombok.Data;
 
 @Data
-public class GetAttendance {
+public class GetAttendanceRequest {
     int year;
     int month;
     int day;

@@ -1,7 +1,6 @@
 package com.benkyo.dao;
 
 import org.springframework.stereotype.Repository;
-
 import com.benkyo.entity.gen.Departments;
 import com.benkyo.mapper.gen.DepartmentsMapper;
 

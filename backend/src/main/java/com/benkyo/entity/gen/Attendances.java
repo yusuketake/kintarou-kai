@@ -17,6 +17,8 @@ public class Attendances {
 
     private String endTime;
 
+    private String breakTime;
+
     private Boolean isEntered;
 
     public Integer getId() {
@@ -83,6 +85,14 @@ public class Attendances {
         this.endTime = endTime == null ? null : endTime.trim();
     }
 
+    public String getBreakTime() {
+        return breakTime;
+    }
+
+    public void setBreakTime(String breakTime) {
+        this.breakTime = breakTime == null ? null : breakTime.trim();
+    }
+
     public Boolean getIsEntered() {
         return isEntered;
     }
@@ -104,22 +114,15 @@ public class Attendances {
         }
         Attendances other = (Attendances) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-                && (this.getUserId() == null ? other.getUserId() == null
-                        : this.getUserId().equals(other.getUserId()))
-                && (this.getHolidayId() == null ? other.getHolidayId() == null
-                        : this.getHolidayId().equals(other.getHolidayId()))
-                && (this.getYear() == null ? other.getYear() == null
-                        : this.getYear().equals(other.getYear()))
-                && (this.getMonth() == null ? other.getMonth() == null
-                        : this.getMonth().equals(other.getMonth()))
-                && (this.getDay() == null ? other.getDay() == null
-                        : this.getDay().equals(other.getDay()))
-                && (this.getStartTime() == null ? other.getStartTime() == null
-                        : this.getStartTime().equals(other.getStartTime()))
-                && (this.getEndTime() == null ? other.getEndTime() == null
-                        : this.getEndTime().equals(other.getEndTime()))
-                && (this.getIsEntered() == null ? other.getIsEntered() == null
-                        : this.getIsEntered().equals(other.getIsEntered()));
+            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+            && (this.getHolidayId() == null ? other.getHolidayId() == null : this.getHolidayId().equals(other.getHolidayId()))
+            && (this.getYear() == null ? other.getYear() == null : this.getYear().equals(other.getYear()))
+            && (this.getMonth() == null ? other.getMonth() == null : this.getMonth().equals(other.getMonth()))
+            && (this.getDay() == null ? other.getDay() == null : this.getDay().equals(other.getDay()))
+            && (this.getStartTime() == null ? other.getStartTime() == null : this.getStartTime().equals(other.getStartTime()))
+            && (this.getEndTime() == null ? other.getEndTime() == null : this.getEndTime().equals(other.getEndTime()))
+            && (this.getBreakTime() == null ? other.getBreakTime() == null : this.getBreakTime().equals(other.getBreakTime()))
+            && (this.getIsEntered() == null ? other.getIsEntered() == null : this.getIsEntered().equals(other.getIsEntered()));
     }
 
     @Override
@@ -134,6 +137,7 @@ public class Attendances {
         result = prime * result + ((getDay() == null) ? 0 : getDay().hashCode());
         result = prime * result + ((getStartTime() == null) ? 0 : getStartTime().hashCode());
         result = prime * result + ((getEndTime() == null) ? 0 : getEndTime().hashCode());
+        result = prime * result + ((getBreakTime() == null) ? 0 : getBreakTime().hashCode());
         result = prime * result + ((getIsEntered() == null) ? 0 : getIsEntered().hashCode());
         return result;
     }
