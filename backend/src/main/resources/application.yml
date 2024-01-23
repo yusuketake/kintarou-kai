@@ -9,11 +9,15 @@ spring:
     password: postgres
 
 mybatis:
-    mapper-locations: classpath:com/benkyo/mapper/gen/*.xml
+  mapper-locations: classpath:com/benkyo/mapper/gen/*.xml
 
 logging:
   config: classpath:logback-spring.xml
   level:
     root: INFO
+    # spring webのロギングレベル
     org.springframework.web: DEBUG
     appLogger: DEBUG
+
+# spring-boot-actuator
+management.endpoints.web.exposure.include: "*"

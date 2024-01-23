@@ -1,9 +1,7 @@
 package com.benkyo.dao;
 
 import java.util.List;
-
 import org.springframework.stereotype.Repository;
-
 import com.benkyo.entity.gen.Users;
 import com.benkyo.entity.gen.UsersExample;
 import com.benkyo.mapper.gen.UsersMapper;
@@ -18,7 +16,6 @@ public class UsersDao {
 
     public Users getUser(int id) {
         Users user = usersMapper.selectByPrimaryKey(id);
-        
 
         return user;
     }
@@ -26,5 +23,16 @@ public class UsersDao {
     public List<Users> getUserList() {
         var example = new UsersExample();
         return usersMapper.selectByExample(example);
+    }
+
+    public int createUser(Users user) {
+        return usersMapper.insertSelective(user);
+    }
+
+    public Users getUserByLoginId(String loginId) {
+        var example = new UsersExample();
+        example.createCriteria().andLoginIdEqualTo(loginId);
+        List<Users> userList = usersMapper.selectByExample(example);
+        return userList.size() >= 1 ? userList.get(0) : null;
     }
 }

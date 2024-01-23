@@ -17,6 +17,8 @@ public class Attendances {
 
     private String endTime;
 
+    private String breakTime;
+
     private Boolean isEntered;
 
     public Integer getId() {
@@ -83,6 +85,14 @@ public class Attendances {
         this.endTime = endTime == null ? null : endTime.trim();
     }
 
+    public String getBreakTime() {
+        return breakTime;
+    }
+
+    public void setBreakTime(String breakTime) {
+        this.breakTime = breakTime == null ? null : breakTime.trim();
+    }
+
     public Boolean getIsEntered() {
         return isEntered;
     }
@@ -111,6 +121,7 @@ public class Attendances {
             && (this.getDay() == null ? other.getDay() == null : this.getDay().equals(other.getDay()))
             && (this.getStartTime() == null ? other.getStartTime() == null : this.getStartTime().equals(other.getStartTime()))
             && (this.getEndTime() == null ? other.getEndTime() == null : this.getEndTime().equals(other.getEndTime()))
+            && (this.getBreakTime() == null ? other.getBreakTime() == null : this.getBreakTime().equals(other.getBreakTime()))
             && (this.getIsEntered() == null ? other.getIsEntered() == null : this.getIsEntered().equals(other.getIsEntered()));
     }
 
@@ -126,6 +137,7 @@ public class Attendances {
         result = prime * result + ((getDay() == null) ? 0 : getDay().hashCode());
         result = prime * result + ((getStartTime() == null) ? 0 : getStartTime().hashCode());
         result = prime * result + ((getEndTime() == null) ? 0 : getEndTime().hashCode());
+        result = prime * result + ((getBreakTime() == null) ? 0 : getBreakTime().hashCode());
         result = prime * result + ((getIsEntered() == null) ? 0 : getIsEntered().hashCode());
         return result;
     }

@@ -10,6 +10,7 @@
     <result column="day" jdbcType="INTEGER" property="day" />
     <result column="start_time" jdbcType="VARCHAR" property="startTime" />
     <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="break_time" jdbcType="VARCHAR" property="breakTime" />
     <result column="is_entered" jdbcType="BIT" property="isEntered" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -71,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, holiday_id, year, month, day, start_time, end_time, is_entered
+    id, user_id, holiday_id, year, month, day, start_time, end_time, break_time, is_entered
   </sql>
   <select id="selectByExample" parameterType="com.benkyo.entity.gen.AttendancesExample" resultMap="BaseResultMap">
     select
@@ -106,10 +107,12 @@
   <insert id="insert" parameterType="com.benkyo.entity.gen.Attendances">
     insert into attendances (id, user_id, holiday_id, 
       year, month, day, start_time, 
-      end_time, is_entered)
+      end_time, break_time, is_entered
+      )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{holidayId,jdbcType=INTEGER}, 
       #{year,jdbcType=INTEGER}, #{month,jdbcType=INTEGER}, #{day,jdbcType=INTEGER}, #{startTime,jdbcType=VARCHAR}, 
-      #{endTime,jdbcType=VARCHAR}, #{isEntered,jdbcType=BIT})
+      #{endTime,jdbcType=VARCHAR}, #{breakTime,jdbcType=VARCHAR}, #{isEntered,jdbcType=BIT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.benkyo.entity.gen.Attendances">
     insert into attendances
@@ -137,6 +140,9 @@
       </if>
       <if test="endTime != null">
         end_time,
+      </if>
+      <if test="breakTime != null">
+        break_time,
       </if>
       <if test="isEntered != null">
         is_entered,
@@ -166,6 +172,9 @@
       </if>
       <if test="endTime != null">
         #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="breakTime != null">
+        #{breakTime,jdbcType=VARCHAR},
       </if>
       <if test="isEntered != null">
         #{isEntered,jdbcType=BIT},
@@ -205,6 +214,9 @@
       <if test="row.endTime != null">
         end_time = #{row.endTime,jdbcType=VARCHAR},
       </if>
+      <if test="row.breakTime != null">
+        break_time = #{row.breakTime,jdbcType=VARCHAR},
+      </if>
       <if test="row.isEntered != null">
         is_entered = #{row.isEntered,jdbcType=BIT},
       </if>
@@ -223,6 +235,7 @@
       day = #{row.day,jdbcType=INTEGER},
       start_time = #{row.startTime,jdbcType=VARCHAR},
       end_time = #{row.endTime,jdbcType=VARCHAR},
+      break_time = #{row.breakTime,jdbcType=VARCHAR},
       is_entered = #{row.isEntered,jdbcType=BIT}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -252,6 +265,9 @@
       <if test="endTime != null">
         end_time = #{endTime,jdbcType=VARCHAR},
       </if>
+      <if test="breakTime != null">
+        break_time = #{breakTime,jdbcType=VARCHAR},
+      </if>
       <if test="isEntered != null">
         is_entered = #{isEntered,jdbcType=BIT},
       </if>
@@ -267,6 +283,7 @@
       day = #{day,jdbcType=INTEGER},
       start_time = #{startTime,jdbcType=VARCHAR},
       end_time = #{endTime,jdbcType=VARCHAR},
+      break_time = #{breakTime,jdbcType=VARCHAR},
       is_entered = #{isEntered,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>

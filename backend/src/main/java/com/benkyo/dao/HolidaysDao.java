@@ -1,9 +1,7 @@
 package com.benkyo.dao;
 
 import java.util.List;
-
 import org.springframework.stereotype.Repository;
-
 import com.benkyo.entity.gen.Holidays;
 import com.benkyo.entity.gen.HolidaysExample;
 import com.benkyo.mapper.gen.HolidaysMapper;
@@ -14,6 +12,13 @@ public class HolidaysDao {
 
     public HolidaysDao(HolidaysMapper holidaysMapper) {
         this.holidaysMapper = holidaysMapper;
+    }
+
+    public List<Holidays> getHolidayName(int holidayId) {
+        HolidaysExample example = new HolidaysExample();
+        example.createCriteria().andIdEqualTo(holidayId);
+
+        return holidaysMapper.selectByExample(example);
     }
 
     public List<Holidays> getHolidayList() {

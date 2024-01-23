@@ -2,9 +2,7 @@ package com.benkyo.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import com.benkyo.dao.HolidaysDao;
 import com.benkyo.model.dto.Holiday;
 
@@ -24,7 +22,7 @@ public class HolidaysService {
             holiday.setName(holidayEntity.getName());
             holidayList.add(holiday);
         });
-        
+
         return holidayList;
     }
 }
