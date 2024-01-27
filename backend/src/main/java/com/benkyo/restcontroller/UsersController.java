@@ -2,12 +2,13 @@ package com.benkyo.restcontroller;
 
 import java.util.List;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.benkyo.entity.UserDetailsImpl;
 import com.benkyo.entity.gen.Users;
 import com.benkyo.model.dto.User;
 import com.benkyo.service.UsersService;
@@ -24,10 +25,11 @@ public class UsersController {
         this.usersService = usersService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable int id) {
+    @GetMapping("/")
+    public ResponseEntity<User> getUser(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl) {
+
         try {
-            return ResponseEntity.ok().body(usersService.getUser(id));
+            return ResponseEntity.ok().body(usersService.getUser(userDetailsImpl.getId()));
         } catch (Exception e) {
             // 存在しないUserIDのリクエストが投げられたとき
             return ResponseEntity.badRequest().body(null);
@@ -35,7 +37,7 @@ public class UsersController {
 
     }
 
-    @GetMapping("")
+    @GetMapping("/getList")
     public ResponseEntity<List<User>> getUserList() {
         return ResponseEntity.ok().body(usersService.getUserList());
     }
