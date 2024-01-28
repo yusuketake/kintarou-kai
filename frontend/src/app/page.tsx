@@ -1,7 +1,7 @@
-import Header from "./header";
-import Totalbar from "./totalbar";
-import DisplayCalendar from "./calendar";
+import DisplayCalendar from "./Calendar";
+import Header from "./Header";
 import Bar from "./bar";
+import Totalbar from "./totalbar";
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
       <div className="w-full h-screen flex">
         <div className="w-1/2 flex-none">
           <div className="">
-            <Header />
+            <Header userName={"yusuke_takeuchi"} />
           </div>
           <div className="">
             <Totalbar />

@@ -10,29 +10,19 @@ export default function Header(
   // const userName = getServerSideProps;
   var http = require("http");
   const agent = new http.Agent({ family: 4 });
-  const response = axios.get("http://google.com", {
-    method: "get",
-    // responseType: "json",
-    httpAgent: agent,
-  });
-  response.then(function (response) {
-    console.log("google: " + response.status);
-  });
-  const response1 = axios.get("http://127.0.0.1:8000/login", {
+  const response = axios.get("http://127.0.0.1:8080/login", {
     method: "get",
     responseType: "json",
     httpAgent: agent,
   });
-  response1.then(function (response) {
-    console.log("localhost: " + response.status);
+  response.then(function (response) {
+    console.log("localhost1: " + response.data);
   });
-
-  // console.log("Header: " + userName);
 
   return (
     <>
       <div className="flex justify-between bg-gray-200 p-5">
-        <div></div>
+        <div>response1</div>
         <div>部署</div>
         <div>ログアウト</div>
       </div>
@@ -44,7 +34,7 @@ export default function Header(
 export const getServerSideProps = async () => {
   try {
     // const userName = await axios.get("http://localhost:8000/api/users/");
-    const userName = 0;
+    const userName = "";
     // console.log("getServerSideProps内");
     // console.log(userName);
     return {
