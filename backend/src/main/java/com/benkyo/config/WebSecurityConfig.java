@@ -16,8 +16,8 @@ public class WebSecurityConfig {
         // APIは全て認証を通す
         http.authorizeHttpRequests((requests) -> requests.requestMatchers("/", "/home", "/api/**")
                 .permitAll().anyRequest().authenticated())
-                .formLogin((form) -> form.loginPage("/login").permitAll()).csrf().disable()
-                .logout((logout) -> logout.permitAll());
+                .formLogin((form) -> form.loginPage("/login").permitAll())
+                .csrf(csrf -> csrf.disable()).logout((logout) -> logout.permitAll());
 
         return http.build();
     }
