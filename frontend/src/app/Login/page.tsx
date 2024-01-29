@@ -49,7 +49,7 @@ function Login() {
   // TODO: React-Hook-Formライブラリを使用して簡潔に書きたい。
   return (
     <div>
-      <form onSubmit={() => console.log("onsubmit")}>
+      <form onSubmit={handleSubmit}>
         <input type="text" name="userName" placeholder="userName" required />
         <input
           type="password"
@@ -57,9 +57,7 @@ function Login() {
           placeholder="Password"
           required
         />
-        <button onClick={() => console.log("onclick")} type="submit">
-          Login
-        </button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );
