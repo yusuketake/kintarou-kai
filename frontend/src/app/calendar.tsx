@@ -6,9 +6,20 @@ import { Calendar } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import axios from "axios";
 
 class DisplayCalendar extends React.Component {
   render() {
+    const userAPI = () => {
+      const token = localStorage.getItem("token");
+      axios
+        .get("http://localhost:8080/api/users/getList", {
+          headers: { "X-AUTH-TOKEN": token },
+        })
+        .then((res) => {
+          console.log(res);
+        });
+    };
     return (
       <div>
         <FullCalendar
@@ -16,6 +27,7 @@ class DisplayCalendar extends React.Component {
           initialView="dayGridMonth"
           dateClick={this.handleDateClick}
         />
+        <button onClick={userAPI}>test</button>
       </div>
     );
   }

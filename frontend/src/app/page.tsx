@@ -1,9 +1,12 @@
+import axios from "axios";
 import DisplayCalendar from "./Calendar";
 import Header from "./Header";
 import Bar from "./bar";
 import Totalbar from "./totalbar";
 
 export default function Home() {
+
+
   return (
     <div>
       <div className="w-full h-screen flex">

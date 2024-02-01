@@ -16,7 +16,7 @@ logging:
   level:
     root: INFO
     # spring webのロギングレベル
-    org.springframework.web: DEBUG
+    org.springframework.web: TRACE
     appLogger: DEBUG
 
 # spring-boot-actuator
