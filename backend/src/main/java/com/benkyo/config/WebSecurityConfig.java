@@ -24,20 +24,18 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .cors(cors -> cors.configurationSource(this.corsConfigurationSource()))
-            .csrf(csrf -> csrf.disable());
-        http
-            .authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/login").permitAll()
-                .anyRequest().authenticated());
+        http.cors(cors -> cors.configurationSource(this.corsConfigurationSource()))
+                .csrf(csrf -> csrf.disable());
+        http.authorizeHttpRequests((requests) -> requests.requestMatchers("/login")
+                .permitAll().anyRequest().authenticated());
         http.addFilterBefore(new AuthorizeFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider(UserDetailsServiceImpl userDetailsServiceImpl) {
+    public DaoAuthenticationProvider authenticationProvider(
+            UserDetailsServiceImpl userDetailsServiceImpl) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsServiceImpl);
         provider.setPasswordEncoder(this.passwordEncoder());
@@ -48,8 +46,9 @@ public class WebSecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000/", "http://localhost:3000"));
-        configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Headers","Access-Control-Allow-Origin","Access-Control-Request-Method","Access-Control-Request-Headers","Cache-Control","Content-Type", "Accept-Language", "X-AUTH-TOKEN"));
+        configuration.setAllowedOrigins(
+                Arrays.asList("http://localhost:3000/", "http://localhost:3000"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
         configuration.addExposedHeader("X-AUTH-TOKEN");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

@@ -29,17 +29,16 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest request) {
         try {
-            daoAuthenticationProvider.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-            String token = JWT.create().withClaim("username", request.getUsername()).sign(Algorithm.HMAC256("__secret__"));
+            daoAuthenticationProvider.authenticate(new UsernamePasswordAuthenticationToken(
+                    request.getUsername(), request.getPassword()));
+            String token = JWT.create().withClaim("username", request.getUsername())
+                    .sign(Algorithm.HMAC256("__secret__"));
             HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.add("x-auth-token", token); 
-            System.out.println("~=====");
-            var response = new ResponseEntity(httpHeaders, HttpStatus.OK);
-            System.out.println(response);
-            return response;
+            httpHeaders.add("x-auth-token", token);
+            return new ResponseEntity(httpHeaders, HttpStatus.OK);
         } catch (AuthenticationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
-    
+
 }
