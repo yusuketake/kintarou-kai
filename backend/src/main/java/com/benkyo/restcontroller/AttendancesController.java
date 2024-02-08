@@ -2,7 +2,7 @@ package com.benkyo.restcontroller;
 
 import java.util.List;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.benkyo.entity.UserDetailsImpl;
 import com.benkyo.entity.gen.Attendances;
 import com.benkyo.model.dto.Attendance;
 import com.benkyo.model.dto.request.DeleteAttendanceRequest;
@@ -36,12 +35,12 @@ public class AttendancesController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<Attendance> getAttendance(
-            @AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
-            @RequestBody GetAttendanceRequest request) {
+    public ResponseEntity<Attendance> getAttendance(@RequestBody GetAttendanceRequest request) {
+        Integer id =
+                Integer.parseInt((String)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Attendances attendances = new Attendances();
         // userIdはsessionから取得
-        attendances.setUserId(userDetailsImpl.getId());
+        attendances.setUserId(id);
         attendances.setYear(request.getYear());
         attendances.setMonth(request.getMonth());
         attendances.setDay(request.getDay());
@@ -54,11 +53,10 @@ public class AttendancesController {
     }
 
     @GetMapping("/getAttendanceListByYearAndMonth")
-    public ResponseEntity<List<Attendances>> getAttendanceListByYearAndMonth(
-            @AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
-            @RequestBody GetAttendanceListRequest request) {
+    public ResponseEntity<List<Attendances>> getAttendanceListByYearAndMonth(@RequestBody GetAttendanceListRequest request) {
+        Integer id = Integer.parseInt((String)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Attendances attendances = new Attendances();
-        attendances.setUserId(userDetailsImpl.getId());
+        attendances.setUserId(id);
         attendances.setYear(request.getYear());
         attendances.setMonth(request.getMonth());
 
@@ -71,11 +69,10 @@ public class AttendancesController {
     }
 
     @PostMapping("/insert")
-    public ResponseEntity<Integer> insertAttendance(
-            @AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
-            @RequestBody UpsertAttendanceRequest request) {
+    public ResponseEntity<Integer> insertAttendance(@RequestBody UpsertAttendanceRequest request) {
+        Integer id = Integer.parseInt((String)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Attendances attendances = new Attendances();
-        attendances.setUserId(userDetailsImpl.getId());
+        attendances.setUserId(id);
         attendances.setYear(request.getYear());
         attendances.setMonth(request.getMonth());
         attendances.setDay(request.getDay());
@@ -97,11 +94,10 @@ public class AttendancesController {
 
     // TODO updateも削除対象のattendanceがあるかチェックして、あった場合はerror投げるようにしたけどいらない？
     @PutMapping("/update")
-    public ResponseEntity<Integer> updateAttendance(
-            @AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
-            @RequestBody UpsertAttendanceRequest request) {
+    public ResponseEntity<Integer> updateAttendance(@RequestBody UpsertAttendanceRequest request) {
+        Integer id = Integer.parseInt((String)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Attendances attendances = new Attendances();
-        attendances.setUserId(userDetailsImpl.getId());
+        attendances.setUserId(id);
         attendances.setYear(request.getYear());
         attendances.setMonth(request.getMonth());
         attendances.setDay(request.getDay());
@@ -123,11 +119,10 @@ public class AttendancesController {
 
     // TODO deleteも削除対象のattendanceがあるかチェックして、あった場合はerror投げるようにしたけどいらない？
     @DeleteMapping("/delete")
-    public ResponseEntity<Integer> deleteAttendance(
-            @AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
-            @RequestBody DeleteAttendanceRequest request) {
+    public ResponseEntity<Integer> deleteAttendance(@RequestBody DeleteAttendanceRequest request) {
+        Integer id = Integer.parseInt((String)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Attendances attendances = new Attendances();
-        attendances.setUserId(userDetailsImpl.getId());
+        attendances.setUserId(id);
         attendances.setYear(request.getYear());
         attendances.setMonth(request.getMonth());
         attendances.setDay(request.getDay());

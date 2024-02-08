@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.benkyo.model.dto.User;
 import com.benkyo.model.dto.request.LoginRequest;
+import com.benkyo.service.UsersService;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +23,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 @CrossOrigin
 public class LoginController {
     private DaoAuthenticationProvider daoAuthenticationProvider;
+    private UsersService usersService;
 
-    public LoginController(DaoAuthenticationProvider daoAuthenticationProvider) {
+    public LoginController(DaoAuthenticationProvider daoAuthenticationProvider, UsersService usersService) {
         this.daoAuthenticationProvider = daoAuthenticationProvider;
+        this.usersService = usersService;
     }
 
     @PostMapping("/login")
@@ -31,7 +35,8 @@ public class LoginController {
         try {
             daoAuthenticationProvider.authenticate(new UsernamePasswordAuthenticationToken(
                     request.getUsername(), request.getPassword()));
-            String token = JWT.create().withClaim("username", request.getUsername())
+            User user = usersService.getUserByUsername(request.getUsername());
+            String token = JWT.create().withClaim("id", user.getId())
                     .sign(Algorithm.HMAC256("__secret__"));
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.add("x-auth-token", token);
