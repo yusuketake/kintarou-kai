@@ -46,12 +46,13 @@ function Login() {
     user.userName;
     axios
       .post("http://localhost:8080/login", {
-        username: "tatsuhiko_saito",
-        password: "password",
+        username: username,
+        password: password,
       })
       .then((response) => {
         console.log(response);
         const token = response.headers["x-auth-token"];
+        console.log(token)
         localStorage.setItem("token", token);
         router.push("/");
       })
