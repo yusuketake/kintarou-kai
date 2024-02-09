@@ -25,7 +25,8 @@ public class LoginController {
     private DaoAuthenticationProvider daoAuthenticationProvider;
     private UsersService usersService;
 
-    public LoginController(DaoAuthenticationProvider daoAuthenticationProvider, UsersService usersService) {
+    public LoginController(DaoAuthenticationProvider daoAuthenticationProvider,
+            UsersService usersService) {
         this.daoAuthenticationProvider = daoAuthenticationProvider;
         this.usersService = usersService;
     }
@@ -35,7 +36,9 @@ public class LoginController {
         try {
             daoAuthenticationProvider.authenticate(new UsernamePasswordAuthenticationToken(
                     request.getUsername(), request.getPassword()));
+            System.out.println(request);
             User user = usersService.getUserByUsername(request.getUsername());
+            System.out.println(user);
             String token = JWT.create().withClaim("id", user.getId())
                     .sign(Algorithm.HMAC256("__secret__"));
             HttpHeaders httpHeaders = new HttpHeaders();

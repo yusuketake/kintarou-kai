@@ -30,8 +30,8 @@ public class UsersController {
 
     @GetMapping("")
     public ResponseEntity<User> getUser() {
-        Integer id =
-                Integer.parseInt((String)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        Integer id = Integer.parseInt(
+                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         try {
             return ResponseEntity.ok().body(usersService.getUser(id));
         } catch (Exception e) {

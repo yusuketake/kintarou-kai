@@ -36,8 +36,8 @@ public class AttendancesController {
 
     @GetMapping("/get")
     public ResponseEntity<Attendance> getAttendance(@RequestBody GetAttendanceRequest request) {
-        Integer id =
-                Integer.parseInt((String)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        Integer id = Integer.parseInt(
+                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Attendances attendances = new Attendances();
         // userIdはsessionから取得
         attendances.setUserId(id);
@@ -53,8 +53,10 @@ public class AttendancesController {
     }
 
     @GetMapping("/getAttendanceListByYearAndMonth")
-    public ResponseEntity<List<Attendances>> getAttendanceListByYearAndMonth(@RequestBody GetAttendanceListRequest request) {
-        Integer id = Integer.parseInt((String)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    public ResponseEntity<List<Attendances>> getAttendanceListByYearAndMonth(
+            @RequestBody GetAttendanceListRequest request) {
+        Integer id = Integer.parseInt(
+                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Attendances attendances = new Attendances();
         attendances.setUserId(id);
         attendances.setYear(request.getYear());
@@ -70,7 +72,8 @@ public class AttendancesController {
 
     @PostMapping("/insert")
     public ResponseEntity<Integer> insertAttendance(@RequestBody UpsertAttendanceRequest request) {
-        Integer id = Integer.parseInt((String)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        Integer id = Integer.parseInt(
+                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Attendances attendances = new Attendances();
         attendances.setUserId(id);
         attendances.setYear(request.getYear());
@@ -95,7 +98,8 @@ public class AttendancesController {
     // TODO updateも削除対象のattendanceがあるかチェックして、あった場合はerror投げるようにしたけどいらない？
     @PutMapping("/update")
     public ResponseEntity<Integer> updateAttendance(@RequestBody UpsertAttendanceRequest request) {
-        Integer id = Integer.parseInt((String)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        Integer id = Integer.parseInt(
+                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Attendances attendances = new Attendances();
         attendances.setUserId(id);
         attendances.setYear(request.getYear());
@@ -120,7 +124,8 @@ public class AttendancesController {
     // TODO deleteも削除対象のattendanceがあるかチェックして、あった場合はerror投げるようにしたけどいらない？
     @DeleteMapping("/delete")
     public ResponseEntity<Integer> deleteAttendance(@RequestBody DeleteAttendanceRequest request) {
-        Integer id = Integer.parseInt((String)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        Integer id = Integer.parseInt(
+                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Attendances attendances = new Attendances();
         attendances.setUserId(id);
         attendances.setYear(request.getYear());

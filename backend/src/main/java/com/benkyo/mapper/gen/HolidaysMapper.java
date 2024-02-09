@@ -22,7 +22,8 @@ public interface HolidaysMapper {
 
     Holidays selectByPrimaryKey(Integer id);
 
-    int updateByExampleSelective(@Param("row") Holidays row, @Param("example") HolidaysExample example);
+    int updateByExampleSelective(@Param("row") Holidays row,
+            @Param("example") HolidaysExample example);
 
     int updateByExample(@Param("row") Holidays row, @Param("example") HolidaysExample example);
 

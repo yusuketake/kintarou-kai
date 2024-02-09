@@ -26,8 +26,8 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.cors(cors -> cors.configurationSource(this.corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable());
-        http.authorizeHttpRequests((requests) -> requests.requestMatchers("/login")
-                .permitAll().anyRequest().authenticated());
+        http.authorizeHttpRequests((requests) -> requests.requestMatchers("/login").permitAll()
+                .anyRequest().authenticated());
         http.addFilterBefore(new AuthorizeFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
