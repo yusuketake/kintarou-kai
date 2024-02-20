@@ -22,9 +22,11 @@ public interface AttendancesMapper {
 
     Attendances selectByPrimaryKey(Integer id);
 
-    int updateByExampleSelective(@Param("row") Attendances row, @Param("example") AttendancesExample example);
+    int updateByExampleSelective(@Param("row") Attendances row,
+            @Param("example") AttendancesExample example);
 
-    int updateByExample(@Param("row") Attendances row, @Param("example") AttendancesExample example);
+    int updateByExample(@Param("row") Attendances row,
+            @Param("example") AttendancesExample example);
 
     int updateByPrimaryKeySelective(Attendances row);
 

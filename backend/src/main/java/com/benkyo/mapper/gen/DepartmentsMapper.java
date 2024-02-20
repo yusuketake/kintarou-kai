@@ -22,9 +22,11 @@ public interface DepartmentsMapper {
 
     Departments selectByPrimaryKey(Integer id);
 
-    int updateByExampleSelective(@Param("row") Departments row, @Param("example") DepartmentsExample example);
+    int updateByExampleSelective(@Param("row") Departments row,
+            @Param("example") DepartmentsExample example);
 
-    int updateByExample(@Param("row") Departments row, @Param("example") DepartmentsExample example);
+    int updateByExample(@Param("row") Departments row,
+            @Param("example") DepartmentsExample example);
 
     int updateByPrimaryKeySelective(Departments row);
 

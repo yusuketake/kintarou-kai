@@ -39,6 +39,10 @@ public class UsersService {
         return usersDao.createUser(user);
     }
 
+    public User getUserByUsername(String username) {
+        return this.of(usersDao.getUserByLoginId(username));
+    }
+
     private User of(Users userEntity) {
         User user = new User();
         user.setId(userEntity.getId());
