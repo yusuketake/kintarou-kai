@@ -81,6 +81,8 @@ public class AttendancesController {
         attendances.setDay(request.getDay());
         attendances.setStartTime(request.getStartTime());
         attendances.setEndTime(request.getEndTime());
+        attendances.setBreakTime(request.getBreakTime());
+        attendances.setHolidayId(request.getHolidayId());
 
         try {
             int isPosted = attendancesService.insertAttendance(attendances);

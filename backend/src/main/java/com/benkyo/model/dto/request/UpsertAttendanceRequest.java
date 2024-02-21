@@ -9,4 +9,6 @@ public class UpsertAttendanceRequest {
     int day;
     String startTime;
     String endTime;
+    int holidayId;
+    String breakTime;
 }
