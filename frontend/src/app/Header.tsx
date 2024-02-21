@@ -1,22 +1,22 @@
-import axios from "axios";
-import { setDefaultResultOrder } from "dns";
-import { InferGetServerSidePropsType } from "next";
-import "./style.css";
-setDefaultResultOrder("ipv4first");
+import axios from 'axios';
+import { setDefaultResultOrder } from 'dns';
+import { InferGetServerSidePropsType } from 'next';
+import './style.css';
+setDefaultResultOrder('ipv4first');
 
 export default function Header(
-  userName: InferGetServerSidePropsType<typeof getServerSideProps>
+  userName: InferGetServerSidePropsType<typeof getServerSideProps>,
 ) {
   // const userName = getServerSideProps;
-  var http = require("http");
+  var http = require('http');
   const agent = new http.Agent({ family: 4 });
-  const response = axios.get("http://127.0.0.1:8080/login", {
-    method: "get",
-    responseType: "json",
+  const response = axios.get('http://127.0.0.1:8080/login', {
+    method: 'get',
+    responseType: 'json',
     httpAgent: agent,
   });
   response.then(function (response) {
-    console.log("localhost1: " + response.data);
+    console.log('localhost1: ' + response.data);
   });
 
   return (
@@ -34,7 +34,7 @@ export default function Header(
 export const getServerSideProps = async () => {
   try {
     // const userName = await axios.get("http://localhost:8000/api/users/");
-    const userName = "";
+    const userName = '';
     // console.log("getServerSideProps内");
     // console.log(userName);
     return {

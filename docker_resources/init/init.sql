@@ -57,6 +57,7 @@ CREATE TABLE IF NOT EXISTS holidays(
 INSERT into
     holidays (id, name)
 VALUES
+    (0, null),
     (1, '有給'),
     (2, 'フレキシブル休暇'),
     (3, 'アニバーサリー休暇'),
