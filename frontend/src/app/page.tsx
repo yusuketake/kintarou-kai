@@ -1,17 +1,105 @@
+'use client';
 import DisplayCalendar from './calendar';
-import Header from './Header';
+import { Header, User } from '@/components/Header';
 import Bar from './bar';
 import Totalbar from './totalbar';
 import { AttendanceForm } from '@/components/AttendanceForm';
+import axios from 'axios';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 export default function Home() {
+  const token = localStorage.getItem('token');
+
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+  const [breakTime, setBreakTime] = useState('');
+  const [holiday, setHoliday] = useState('');
+  const [holidays, setHolidays] = useState([]);
+  const [user, setUser] = useState();
+
+  const handleChangeStartTime = (e: ChangeEvent<HTMLInputElement>) => {
+    setStartTime(e.target.value);
+  };
+
+  const handleChangeEndTime = (e: ChangeEvent<HTMLInputElement>) => {
+    setEndTime(e.target.value);
+  };
+
+  const handleChangeBreakTime = (e: ChangeEvent<HTMLInputElement>) => {
+    setBreakTime(e.target.value);
+  };
+
+  const handleChangeHoliday = (e: ChangeEvent<HTMLSelectElement>) => {
+    setHoliday(e.target.value);
+  };
+
+  // 休暇情報の取得
+  useEffect(() => {
+    axios
+      .get('http://localhost:8080/api/holidays', {
+        headers: { 'X-AUTH-TOKEN': token },
+      })
+      .then((res) => {
+        setHolidays(res.data);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:8080/api/users', {
+        headers: { 'X-AUTH-TOKEN': token },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setUser(res.data);
+      });
+  }, []);
+
+  const handleClickInsert = () => {
+    const data = {
+      year: 2025,
+      month: 1,
+      day: 27,
+      startTime: startTime,
+      endTime: endTime,
+      breakTime: breakTime,
+      holidayId: holiday,
+    };
+    axios
+      .post('http://localhost:8080/api/attendances/insert', data, {
+        headers: { 'X-AUTH-TOKEN': token, 'Content-Type': 'application/json' },
+      })
+      .then(() => {
+        alert('登録に成功しました');
+      })
+      .catch((err) => {
+        alert('登録に失敗しました' + err);
+      });
+  };
+
+  const handleClickDelete = () => {
+    const data = {
+      year: 2025,
+      month: 1,
+      day: 27,
+    };
+    axios
+      .delete('http://localhost:8080/api/attendances/delete', {
+        headers: { 'X-AUTH-TOKEN': token, 'Content-Type': 'application/json' },
+        data: data,
+      })
+      .then(() => {
+        alert('削除に成功しました');
+      })
+      .catch((err) => {
+        alert('削除に失敗しました' + err);
+      });
+  };
   return (
     <div>
+      <Header user={user} />
       <div className="w-full h-screen flex">
         <div className="w-1/2 flex-none">
-          <div className="">
-            <Header userName={'yusuke_takeuchi'} />
-          </div>
           <div className="">
             <Totalbar />
           </div>
@@ -20,16 +108,6 @@ export default function Home() {
           </div>
         </div>
         <div>
-          <div className="p-2 w-full flex">
-            <div>
-              <div>
-                <span>Name</span>
-              </div>
-              <div>
-                <span>2023/1/1</span>
-              </div>
-            </div>
-          </div>
           <div className="p-2 w-1/2 flex w-full">
             <div className="p-2 w-1/8 timeBar-container">
               <Bar classname={'timeBar'} />
@@ -37,7 +115,15 @@ export default function Home() {
             <div className="p-2 w-1/4">
               <Bar classname={'bar'} />
             </div>
-            <AttendanceForm />
+            <AttendanceForm
+              handleChangeStartTime={handleChangeStartTime}
+              handleChangeEndTime={handleChangeEndTime}
+              handleChangeBreakTime={handleChangeBreakTime}
+              handleChangeHoliday={handleChangeHoliday}
+              holidays={holidays}
+              handleClickInsert={handleClickInsert}
+              handleClickDelete={handleClickDelete}
+            />
           </div>
         </div>
       </div>
