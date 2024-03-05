@@ -1,19 +1,19 @@
-'use client';
-import DisplayCalendar from './calendar';
-import { Header, User } from '@/components/Header';
-import Bar from './bar';
-import Totalbar from './totalbar';
-import { AttendanceForm } from '@/components/AttendanceForm';
-import axios from 'axios';
-import { ChangeEvent, useEffect, useState } from 'react';
+"use client";
+import { AttendanceForm } from "@/components/AttendanceForm";
+import { Header } from "@/components/Header";
+import axios from "axios";
+import { ChangeEvent, useEffect, useState } from "react";
+import Bar from "./bar";
+import DisplayCalendar from "./calendar";
+import Totalbar from "./totalbar";
 
 export default function Home() {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
 
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
-  const [breakTime, setBreakTime] = useState('');
-  const [holiday, setHoliday] = useState('');
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [breakTime, setBreakTime] = useState("");
+  const [holiday, setHoliday] = useState("");
   const [holidays, setHolidays] = useState([]);
   const [user, setUser] = useState();
 
@@ -36,8 +36,8 @@ export default function Home() {
   // 休暇情報の取得
   useEffect(() => {
     axios
-      .get('http://localhost:8080/api/holidays', {
-        headers: { 'X-AUTH-TOKEN': token },
+      .get("http://localhost:8080/api/holidays", {
+        headers: { "X-AUTH-TOKEN": token },
       })
       .then((res) => {
         setHolidays(res.data);
@@ -46,8 +46,8 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/api/users', {
-        headers: { 'X-AUTH-TOKEN': token },
+      .get("http://localhost:8080/api/users", {
+        headers: { "X-AUTH-TOKEN": token },
       })
       .then((res) => {
         console.log(res.data);
@@ -66,14 +66,14 @@ export default function Home() {
       holidayId: holiday,
     };
     axios
-      .post('http://localhost:8080/api/attendances/insert', data, {
-        headers: { 'X-AUTH-TOKEN': token, 'Content-Type': 'application/json' },
+      .post("http://localhost:8080/api/attendances/insert", data, {
+        headers: { "X-AUTH-TOKEN": token, "Content-Type": "application/json" },
       })
       .then(() => {
-        alert('登録に成功しました');
+        alert("登録に成功しました");
       })
       .catch((err) => {
-        alert('登録に失敗しました' + err);
+        alert("登録に失敗しました" + err);
       });
   };
 
@@ -84,17 +84,27 @@ export default function Home() {
       day: 27,
     };
     axios
-      .delete('http://localhost:8080/api/attendances/delete', {
-        headers: { 'X-AUTH-TOKEN': token, 'Content-Type': 'application/json' },
+      .delete("http://localhost:8080/api/attendances/delete", {
+        headers: { "X-AUTH-TOKEN": token, "Content-Type": "application/json" },
         data: data,
       })
       .then(() => {
-        alert('削除に成功しました');
+        alert("削除に成功しました");
       })
       .catch((err) => {
-        alert('削除に失敗しました' + err);
+        alert("削除に失敗しました" + err);
       });
   };
+
+  // AttendanceFormに勤務時間を反映するためのstate
+  const [attendance, setAttendance] = useState(null);
+
+  // calendarで日付を選択した時に、AttendanceFormに勤務時間を反映する
+  // calendar.tsxから将来的に持ってくる
+  // const handleCalendarDateClick=()=>{
+
+  // }
+
   return (
     <div>
       <Header user={user} />
@@ -104,16 +114,19 @@ export default function Home() {
             <Totalbar />
           </div>
           <div className="">
-            <DisplayCalendar />
+            <DisplayCalendar
+              attendance={attendance}
+              setAttendance={setAttendance}
+            />
           </div>
         </div>
         <div>
           <div className="p-2 w-1/2 flex w-full">
             <div className="p-2 w-1/8 timeBar-container">
-              <Bar classname={'timeBar'} />
+              <Bar classname={"timeBar"} />
             </div>
             <div className="p-2 w-1/4">
-              <Bar classname={'bar'} />
+              <Bar classname={"bar"} />
             </div>
             <AttendanceForm
               handleChangeStartTime={handleChangeStartTime}
@@ -123,6 +136,8 @@ export default function Home() {
               holidays={holidays}
               handleClickInsert={handleClickInsert}
               handleClickDelete={handleClickDelete}
+              attendance={attendance}
+              setAttendance={setAttendance}
             />
           </div>
         </div>

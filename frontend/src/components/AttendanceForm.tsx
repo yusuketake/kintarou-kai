@@ -1,4 +1,5 @@
-import { ChangeEvent } from 'react';
+import { Attendance } from "@/app/calendar";
+import { ChangeEvent } from "react";
 
 type Holiday = {
   id: number;
@@ -13,9 +14,14 @@ type Props = {
   holidays: Holiday[];
   handleClickInsert: () => void;
   handleClickDelete: () => void;
+  attendance: Attendance | null;
+  setAttendance: Function; // 厳密に定義するならReact.Dispatch<React.SetStateAction<YourStateType>>
 };
 
 export const AttendanceForm = (props: Props) => {
+  console.log(props.attendance);
+  console.log(props.attendance ? props.attendance["holidayName"] : "");
+
   return (
     <div className="border p-5 rounded shadow">
       <div>
@@ -24,9 +30,12 @@ export const AttendanceForm = (props: Props) => {
           <select
             onChange={props.handleChangeHoliday}
             className="mt-1 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            defaultValue={
+              props.attendance ? props.attendance["holidayName"] : ""
+            }
           >
             {props.holidays.map((holiday) => (
-              <option key={holiday.id} value={holiday.id}>
+              <option key={holiday.id} value={holiday.name}>
                 {holiday.name}
               </option>
             ))}
@@ -38,6 +47,7 @@ export const AttendanceForm = (props: Props) => {
             type="text"
             pattern="^(0[0-9]|1[0-9]|2[0-3])([0-5][0-9])?$"
             placeholder="0000-2359"
+            defaultValue={props.attendance?.startTime}
             onChange={props.handleChangeStartTime}
             className="mt-1 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
@@ -49,6 +59,7 @@ export const AttendanceForm = (props: Props) => {
             type="text"
             pattern="^(0[0-9]|1[0-9]|2[0-3])([0-5][0-9])?$"
             placeholder="0000-2359"
+            defaultValue={props.attendance?.endTime}
             onChange={props.handleChangeEndTime}
             className="mt-1 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
@@ -60,6 +71,7 @@ export const AttendanceForm = (props: Props) => {
             type="text"
             pattern="^(0[0-9]|1[0-9]|2[0-3])([0-5][0-9])?$"
             placeholder="0000-2359"
+            defaultValue={props.attendance?.breakTime}
             onChange={props.handleChangeBreakTime}
             className="mt-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
