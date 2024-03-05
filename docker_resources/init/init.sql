@@ -1,6 +1,6 @@
 CREATE DATABASE kintarou;
 
-\c kintarou;
+\ c kintarou;
 
 CREATE TABLE IF NOT EXISTS departments(
     id SERIAL,
@@ -86,6 +86,10 @@ CREATE TABLE IF NOT EXISTS attendances(
 );
 
 -- attendances ダミーデータ作成
+\
+set
+    START_DATE '2023-12-01';
+
 INSERT INTO
     attendances (
         user_id,
@@ -104,27 +108,27 @@ SELECT
     EXTRACT(
         year
         FROM
-            timestamp '2023-12-01' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '8 hours'
+            timestamp :'START_DATE' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '8 hours'
     ) as year,
     EXTRACT(
         month
         FROM
-            timestamp '2023-12-01' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '8 hours'
+            timestamp :'START_DATE' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '8 hours'
     ) as month,
     EXTRACT(
         day
         FROM
-            timestamp '2023-12-01' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '8 hours'
+            timestamp :'START_DATE' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '8 hours'
     ) as day,
     to_char(
         (
-            timestamp '2023-12-01' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '8 hours'
+            timestamp :'START_DATE' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '8 hours'
         ) :: time,
         'HH24MI'
     ) as start_time,
     to_char(
         (
-            timestamp '2023-12-01' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '17 hours'
+            timestamp :'START_DATE' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '17 hours'
         ) :: time,
         'HH24MI'
     ) as end_time,
