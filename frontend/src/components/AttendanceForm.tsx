@@ -19,8 +19,8 @@ type Props = {
 };
 
 export const AttendanceForm = (props: Props) => {
-  console.log(props.attendance);
-  console.log(props.attendance ? props.attendance["holidayName"] : "");
+  console.log("props.attendance:");
+  console.log(props.attendance?.holidayName);
 
   return (
     <div className="border p-5 rounded shadow">
@@ -30,9 +30,7 @@ export const AttendanceForm = (props: Props) => {
           <select
             onChange={props.handleChangeHoliday}
             className="mt-1 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            defaultValue={
-              props.attendance ? props.attendance["holidayName"] : ""
-            }
+            defaultValue={props.attendance?.holidayName}
           >
             {props.holidays.map((holiday) => (
               <option key={holiday.id} value={holiday.name}>

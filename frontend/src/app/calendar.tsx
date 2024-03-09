@@ -4,7 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./style.css";
 
 type Props = {
@@ -20,7 +20,7 @@ export type Attendance = {
 };
 
 function DisplayCalendar(props: Props) {
-  console.log("start function()");
+  console.log("start DisplayCalendar()");
   const userAPI = () => {
     const token = localStorage.getItem("token");
     axios
@@ -37,7 +37,12 @@ function DisplayCalendar(props: Props) {
   // fullcalendarのためのevents格納用配列の初期化
   // let events: Event[] = [];
   const [calendarEvents, setCalendarEvents] = useState({});
-  // let calendarEvents = {} as Events;
+  const dateObj = new Date();
+  const [calendarMonthYear, setCalendarMonthYear] = useState({
+    month: dateObj.getMonth() + 1,
+    year: dateObj.getFullYear(),
+  });
+  console.log(calendarMonthYear);
 
   type Events = {
     events: Event[];
@@ -47,15 +52,25 @@ function DisplayCalendar(props: Props) {
     start: string;
   };
 
-  // API取得用の関数
-  async function monthlyevents() {
-    console.log("start monthlyevents()");
+  // その月のattendancesを取得
+  async function getMonthlyevents() {
+    console.log("start getmonthlyevents()");
 
-    console.log("axios start");
     const token = localStorage.getItem("token");
+    console.log(
+      "http://localhost:8080/api/attendances/getAttendanceListByYearAndMonth?year=" +
+        calendarMonthYear.year +
+        "&month=" +
+        calendarMonthYear.month +
+        ""
+    );
     await axios
       .get(
-        "http://localhost:8080/api/attendances/getAttendanceListByYearAndMonth?year=2024&month=3",
+        "http://localhost:8080/api/attendances/getAttendanceListByYearAndMonth?year=" +
+          calendarMonthYear.year +
+          "&month=" +
+          calendarMonthYear.month +
+          "",
         {
           headers: {
             "X-AUTH-TOKEN": token,
@@ -92,40 +107,37 @@ function DisplayCalendar(props: Props) {
           eventList.push(event);
         });
 
+        console.log(eventList);
         setCalendarEvents(eventList);
       })
-      .catch((res) => {
-        // console.log(res);
+      .catch((error) => {
+        console.log(error);
       })
-      .finally(() => {
-        console.log("finally↓");
-      });
+      .finally(() => {});
   }
 
   // events取得
   useEffect(() => {
-    monthlyevents();
+    getMonthlyevents();
   }, []);
-
-  // カレンダー操作時
-  // const handleDateClick = (info: { dateStr: string }) => {
-  //   alert("Clicked on: " + info.dateStr);
-
-  //   let date = info.dateStr;
-
-  //   // APIにpostしてその日のeventを取得して表示する
-  // };
 
   // 日付をクリックした時の処理
   async function getDailyEvevnt(info: { dateStr: string }) {
     // クリックした枠の日付取得
-    const day = new Date(info.dateStr).getDate();
-    console.log("clickDay:" + day);
+    const calendarClickDate = new Date(info.dateStr);
+    const year = calendarClickDate.getFullYear();
+    const month = calendarClickDate.getMonth() + 1;
+    const day = calendarClickDate.getDate();
+    console.log("click Year:" + year + " Month:" + month + " Day:" + day);
 
     const token = localStorage.getItem("token");
     await axios
       .get(
-        "http://localhost:8080/api/attendances/get?year=2024&month=3&date=" +
+        "http://localhost:8080/api/attendances/get?year=" +
+          year +
+          "&month=" +
+          month +
+          "&date=" +
           day,
         {
           headers: {
@@ -136,8 +148,71 @@ function DisplayCalendar(props: Props) {
       .then((res) => {
         props.setAttendance(res.data);
         console.log(props.attendance);
+      })
+      .catch((error) => {
+        console.error(error);
+        props.setAttendance(null);
       });
   }
+  const calendarRef = useRef(null);
+
+  // FullCalendar のカスタム関数を定義
+  const customPrev = () => {
+    console.log("start customPrev:");
+    console.log(calendarMonthYear);
+    const calendarAPI = calendarRef?.current?.getApi();
+    if (calendarMonthYear.month == 1) {
+      setCalendarMonthYear({
+        month: 12,
+        year: calendarMonthYear.year - 1,
+      });
+    } else {
+      setCalendarMonthYear({
+        month: calendarMonthYear.month - 1,
+        year: calendarMonthYear.year,
+      });
+    }
+    console.log(calendarMonthYear);
+    calendarAPI?.prev();
+    // getMonthlyevents();
+  };
+
+  function customNext() {
+    console.log("start customNext:");
+    console.log(calendarMonthYear);
+    const calendarApi = calendarRef?.current?.getApi();
+    if (calendarMonthYear.month == 12) {
+      setCalendarMonthYear({
+        month: 1,
+        year: calendarMonthYear.year + 1,
+      });
+    } else {
+      setCalendarMonthYear({
+        month: calendarMonthYear.month + 1,
+        year: calendarMonthYear.year,
+      });
+    }
+    console.log(calendarMonthYear);
+    calendarApi?.next();
+    // getMonthlyevents();
+  }
+
+  function customToday() {
+    console.log("start customToday; ");
+    console.log(calendarMonthYear);
+    const calendarApi = calendarRef?.current?.getApi();
+
+    setCalendarMonthYear({
+      month: dateObj.getMonth() + 1,
+      year: dateObj.getFullYear(),
+    });
+
+    console.log(calendarMonthYear);
+    calendarApi.today();
+    // getMonthlyevents();
+  }
+
+  console.log("end DisplayCalendar()");
 
   return (
     <div>
@@ -146,8 +221,19 @@ function DisplayCalendar(props: Props) {
         initialView="dayGridMonth"
         dateClick={getDailyEvevnt}
         events={calendarEvents}
+        headerToolbar={{
+          left: "",
+          center: "title",
+          right: "customPrev,customNext customToday",
+        }}
+        customButtons={{
+          customPrev: { text: "<", click: customPrev },
+          customNext: { text: ">", click: customNext },
+          customToday: { text: "today", click: customToday },
+        }}
+        ref={calendarRef}
       />
-      <button onClick={monthlyevents}>test</button>
+      <button onClick={getMonthlyevents}>test</button>
     </div>
   );
 }
