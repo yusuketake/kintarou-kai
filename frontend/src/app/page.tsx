@@ -4,7 +4,7 @@ import { Header } from "@/components/Header";
 import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
 import Bar from "./bar";
-import DisplayCalendar from "./calendar";
+import DisplayCalendar, { Event } from "./calendar";
 import Totalbar from "./totalbar";
 
 export default function Home() {
@@ -32,6 +32,19 @@ export default function Home() {
   const handleChangeHoliday = (e: ChangeEvent<HTMLSelectElement>) => {
     setHoliday(e.target.value);
   };
+
+  const [highliteSelectedDateEvent, setHighliteSelectedDateEvent] = useState<
+    Event[]
+  >([]);
+
+  // AttendanceFormに勤務時間を反映するためのstate
+  const [attendance, setAttendance] = useState(null);
+
+  // calendarで日付を選択した時に、AttendanceFormに勤務時間を反映する
+  // calendar.tsxから将来的に持ってくる
+  // const handleCalendarDateClick=()=>{
+
+  // }
 
   // 休暇情報の取得
   useEffect(() => {
@@ -96,15 +109,6 @@ export default function Home() {
       });
   };
 
-  // AttendanceFormに勤務時間を反映するためのstate
-  const [attendance, setAttendance] = useState(null);
-
-  // calendarで日付を選択した時に、AttendanceFormに勤務時間を反映する
-  // calendar.tsxから将来的に持ってくる
-  // const handleCalendarDateClick=()=>{
-
-  // }
-
   return (
     <div>
       <Header user={user} />
@@ -117,6 +121,8 @@ export default function Home() {
             <DisplayCalendar
               attendance={attendance}
               setAttendance={setAttendance}
+              highliteSelectedDateEvent={highliteSelectedDateEvent}
+              setHighliteSelectedDateEvent={setHighliteSelectedDateEvent}
             />
           </div>
         </div>
@@ -138,6 +144,7 @@ export default function Home() {
               handleClickDelete={handleClickDelete}
               attendance={attendance}
               setAttendance={setAttendance}
+              highliteSelectedDateEvent={highliteSelectedDateEvent}
             />
           </div>
         </div>

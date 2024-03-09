@@ -1,5 +1,5 @@
-import { Attendance } from "@/app/calendar";
-import { ChangeEvent } from "react";
+import { Attendance, Event } from "@/app/calendar";
+import { ChangeEvent, useEffect, useRef } from "react";
 
 type Holiday = {
   id: number;
@@ -16,11 +16,36 @@ type Props = {
   handleClickDelete: () => void;
   attendance: Attendance | null;
   setAttendance: Function; // 厳密に定義するならReact.Dispatch<React.SetStateAction<YourStateType>>
+  highliteSelectedDateEvent: Event;
 };
 
 export const AttendanceForm = (props: Props) => {
-  console.log("props.attendance:");
-  console.log(props.attendance?.holidayName);
+  // console.log("props.attendance:");
+  // console.log(props.attendance?.holidayName);
+
+  const inputref = useRef<HTMLInputElement>(null);
+  // TODO 作りかけ：AttendanceFormに入力した状態で他の日付を選択するとAttendanceFormの値が更新されない 1
+  // const clearInput = () => {
+  //   console.log("clearInput");
+  //   console.log(inputref.current?.value);
+  //   console.log(
+  //     "🚀 ~ clearInput ~ inputref.current?.value:",
+  //     inputref.current?.value
+  //   );
+  //   inputref.current ? (inputref.current.value = null) : {};
+  // };
+
+  useEffect(() => {
+    console.log("🚀 ~ useEffect ~ useEffect:", useEffect);
+    // clearInput();
+    console.log(
+      "🚀 ~ useEffect ~ props.attendance?.holidayName:",
+      props.attendance?.startTime
+    );
+  }),
+    [props.highliteSelectedDateEvent];
+
+  console.log(props.highliteSelectedDateEvent);
 
   return (
     <div className="border p-5 rounded shadow">
@@ -31,6 +56,7 @@ export const AttendanceForm = (props: Props) => {
             onChange={props.handleChangeHoliday}
             className="mt-1 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             defaultValue={props.attendance?.holidayName}
+            // ref={inputref}
           >
             {props.holidays.map((holiday) => (
               <option key={holiday.id} value={holiday.name}>
@@ -49,6 +75,7 @@ export const AttendanceForm = (props: Props) => {
             onChange={props.handleChangeStartTime}
             className="mt-1 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
+            // ref={inputref}
           />
         </div>
         <div className="mt-3">
@@ -61,6 +88,7 @@ export const AttendanceForm = (props: Props) => {
             onChange={props.handleChangeEndTime}
             className="mt-1 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
+            // ref={inputref}
           />
         </div>
         <div className="mt-3">
@@ -73,6 +101,7 @@ export const AttendanceForm = (props: Props) => {
             onChange={props.handleChangeBreakTime}
             className="mt-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
+            // ref={inputref}
           />
         </div>
       </div>
