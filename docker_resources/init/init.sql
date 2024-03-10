@@ -1,6 +1,6 @@
 CREATE DATABASE kintarou;
 
-\ c kintarou;
+\c kintarou;
 
 CREATE TABLE IF NOT EXISTS departments(
     id SERIAL,
@@ -86,10 +86,9 @@ CREATE TABLE IF NOT EXISTS attendances(
 );
 
 -- attendances ダミーデータ作成
-\
-set
-    START_DATE '2023-12-01';
+\set START_DATE '2023-12-01';
 
+-- DECLARE START_DATE := '2023-12-01';
 INSERT INTO
     attendances (
         user_id,
