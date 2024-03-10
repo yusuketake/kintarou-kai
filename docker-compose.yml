@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: kintarou-kai-postgres-1
     ports:
       - "5433:5432" #5432だと他のアプリと被りそうだからずらした
     environment:

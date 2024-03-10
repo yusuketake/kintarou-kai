@@ -57,6 +57,7 @@ CREATE TABLE IF NOT EXISTS holidays(
 INSERT into
     holidays (id, name)
 VALUES
+    (0, null),
     (1, '有給'),
     (2, 'フレキシブル休暇'),
     (3, 'アニバーサリー休暇'),
@@ -85,6 +86,9 @@ CREATE TABLE IF NOT EXISTS attendances(
 );
 
 -- attendances ダミーデータ作成
+\set START_DATE '2023-12-01';
+
+-- DECLARE START_DATE := '2023-12-01';
 INSERT INTO
     attendances (
         user_id,
@@ -103,27 +107,27 @@ SELECT
     EXTRACT(
         year
         FROM
-            timestamp '2023-12-01' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '8 hours'
+            timestamp :'START_DATE' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '8 hours'
     ) as year,
     EXTRACT(
         month
         FROM
-            timestamp '2023-12-01' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '8 hours'
+            timestamp :'START_DATE' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '8 hours'
     ) as month,
     EXTRACT(
         day
         FROM
-            timestamp '2023-12-01' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '8 hours'
+            timestamp :'START_DATE' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '8 hours'
     ) as day,
     to_char(
         (
-            timestamp '2023-12-01' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '8 hours'
+            timestamp :'START_DATE' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '8 hours'
         ) :: time,
         'HH24MI'
     ) as start_time,
     to_char(
         (
-            timestamp '2023-12-01' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '17 hours'
+            timestamp :'START_DATE' + d.day * interval '1 day' + (random() * 3 * interval '1 hour') + interval '17 hours'
         ) :: time,
         'HH24MI'
     ) as end_time,

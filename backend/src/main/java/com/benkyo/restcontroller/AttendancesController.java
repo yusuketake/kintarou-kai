@@ -9,12 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.benkyo.entity.gen.Attendances;
 import com.benkyo.model.dto.Attendance;
 import com.benkyo.model.dto.request.DeleteAttendanceRequest;
-import com.benkyo.model.dto.request.GetAttendanceListRequest;
-import com.benkyo.model.dto.request.GetAttendanceRequest;
 import com.benkyo.model.dto.request.UpsertAttendanceRequest;
 import com.benkyo.service.AttendancesService;
 import lombok.extern.slf4j.Slf4j;
@@ -35,15 +34,18 @@ public class AttendancesController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<Attendance> getAttendance(@RequestBody GetAttendanceRequest request) {
+    public ResponseEntity<Attendance> getAttendance(@RequestParam int year, @RequestParam int month,
+            @RequestParam int date) {
         Integer id = Integer.parseInt(
                 (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Attendances attendances = new Attendances();
+        // GetAttendanceRequest request = new GetAttendanceRequest();
+
         // userIdはsessionから取得
         attendances.setUserId(id);
-        attendances.setYear(request.getYear());
-        attendances.setMonth(request.getMonth());
-        attendances.setDay(request.getDay());
+        attendances.setYear(year);
+        attendances.setMonth(month);
+        attendances.setDay(date);
 
         try {
             return ResponseEntity.ok().body(attendancesService.getAttendance(attendances));
@@ -53,14 +55,15 @@ public class AttendancesController {
     }
 
     @GetMapping("/getAttendanceListByYearAndMonth")
-    public ResponseEntity<List<Attendances>> getAttendanceListByYearAndMonth(
-            @RequestBody GetAttendanceListRequest request) {
+    public ResponseEntity<List<Attendances>> getAttendanceListByYearAndMonth(@RequestParam int year,
+            @RequestParam int month) {
         Integer id = Integer.parseInt(
                 (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Attendances attendances = new Attendances();
+
         attendances.setUserId(id);
-        attendances.setYear(request.getYear());
-        attendances.setMonth(request.getMonth());
+        attendances.setYear(year);
+        attendances.setMonth(month);
 
         try {
             return ResponseEntity.ok()
