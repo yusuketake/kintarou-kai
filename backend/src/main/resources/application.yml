@@ -4,9 +4,9 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5433/kintarou
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://dpg-cq0fg9bv2p9s73c9hvug-a.singapore-postgres.render.com:5432/kintarou
+    username: postgre
+    password: 05vYvJDgzoYG0TeDenJvSaLou4KwN0zA
 
 mybatis:
   mapper-locations: classpath:com/benkyo/mapper/gen/*.xml
